@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<div class="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center">
+    <!-- Icon -->
+    <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+        <i class="fa-regular fa-folder-open text-xl"></i>
+    </div>
+
+    <!-- Text -->
+    <h3 class="text-base font-semibold text-slate-800">
+        {% trans "No items found" %}
+    </h3>
+    <p class="mt-1 text-sm text-slate-500">
+        {% trans "There are currently no items to display." %}
+    </p>
+
+    
+</div>

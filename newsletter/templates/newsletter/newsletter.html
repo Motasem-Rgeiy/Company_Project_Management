@@ -1,0 +1,78 @@
+{% extends "base_minimal.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="p-6 bg-slate-50 min-h-screen flex flex-col gap-6">
+    {% csrf_token %}
+
+    <!-- Header Section -->
+    <div class="flex justify-between items-center">
+        <div class="flex flex-col gap-1">
+            <h1 class="font-bold tracking-wider text-xl text-slate-800">{{ current_manager }}</h1>
+            <p class="text-sm text-slate-500">{% trans "This page is accessible only by the site manager." %}</p>
+        </div>
+        <div class="bg-white shadow-sm border border-slate-200 p-4 px-6 flex flex-col justify-center rounded-xl items-center"> 
+            <h1 class="tracking-wider text-xs font-semibold uppercase text-slate-500">{% trans "Subscribers" %}</h1>
+            <span class="text-2xl font-bold text-slate-800">{{ total_subscribers }}</span>
+        </div>
+    </div>
+
+    <!-- Main Grid: History & Form -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        
+        <!-- Left Column: Sent Email History -->
+        <div class="flex flex-col gap-4">
+            <h2 class="tracking-wider font-bold text-lg text-slate-800">{% trans "Sent Email History" %}</h2>
+            
+            {% for newsletter in newsletters %}
+                <div class="bg-white shadow-sm border border-slate-200 p-5 rounded-xl flex flex-col gap-2">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <h3 class="font-bold text-slate-800 text-base">{{ newsletter.title }}</h3>
+                        <span class="text-xs text-slate-400 font-medium">{{ newsletter.created_at|date:"M d, Y" }}</span>
+                    </div>
+                    <p class="text-slate-600 text-sm whitespace-pre-line">{{ newsletter.body }}</p>
+                    {% if newsletter.image %}
+                        <img src="{{ newsletter.image.url }}" alt="Newsletter Attachment" class="mt-2 rounded-lg max-h-60 object-cover w-full">
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p class="text-slate-400 text-sm">{% trans "No email history found." %}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Right Column: Compose Form -->
+         {% if total_subscribers > 0  %}
+         
+            <div class="bg-white shadow-sm border border-slate-200 p-6 rounded-xl flex flex-col gap-4 self-start">
+                <h2 class="tracking-wider font-bold text-lg text-slate-800 border-b pb-3">{% trans "Compose Newsletter" %}</h2>
+
+                <div class="flex flex-col gap-1">
+                    <label for="title" class="text-sm font-medium text-slate-700">{% trans "Subject" %}</label>
+                    <input type="text" id="title" placeholder="{% trans 'Newsletter Title' %}" class="border border-slate-300 p-2.5 rounded-lg w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="body" class="text-sm font-medium text-slate-700">{% trans "Body" %}</label>
+                    <textarea id="body" placeholder="{% trans 'Newsletter Body' %}" class="border border-slate-300 p-2.5 rounded-lg w-full h-36 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
+                </div>
+
+            
+
+                <p class="hidden text-red-500 text-sm" id="err-msg"></p>
+
+                <div class="flex items-center justify-between pt-2">
+                
+                    <button id="sendBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg text-sm transition-colors">
+                        {% trans "Send" %}
+                    </button>
+                </div>
+       
+        </div>
+     {% endif %}
+
+    </div>
+</div>
+
+<script src="{% static 'js/newsletter.js' %}"></script>
+{% endblock %}

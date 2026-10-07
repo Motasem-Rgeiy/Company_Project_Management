@@ -1,0 +1,77 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+
+<div class=" bg-slate-900 text-slate-50 w-full col-span-3 flex flex-row justify-between items-center gap-10 py-4 px-7 ">
+
+    <div class="flex items-center gap-2.5">
+
+   
+        <img class="h-9 w-auto" src="{% static "image/logo.png" %}" alt="">
+        <span class="font-bold text-xl tracking-tight hidden md:inline">
+        Teamflow <span class="font-light text-slate-400">Projects</span>
+      </span>
+     </div>
+
+     <select 
+         class="bg-slate-800 text-slate-100 border border-slate-700 rounded-md px-3 py-2 focus:outline-none"
+         onchange="if (this.value) window.location.href = this.value;"
+         >
+        
+         <option value="" disabled selected>{% trans "App" %} </option>
+         <option value="{% url 'project_list' %}">{% trans "Projects" %}</option>
+         <option value="{% url 'post_list' %}">{% trans "Blog" %}</option>
+      </select>
+
+
+     
+      <form action="{% url "set_language" %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="next" type="hidden" value="{{redirect_to}}">
+        <select class="bg-slate-800 text-slate-100 border border-slate-700 rounded-md px-3 py-2 focus:outline-none" name="language" onchange="this.form.submit()">
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            <option class="text-slate-100" value="">{% trans "Languages" %}</option>
+            {% for lang in languages %}
+                <option value="{{lang.code}}" {% if lang.code == LANGUAGE_CODE %}selected{% endif %}>
+                    {{ lang.name_local }}
+                </option>
+            {% endfor %}
+        </select>
+     </form>
+
+     
+        <h1 class="bg-slate-800  border border-slate-700 rounded-md px-3 py-2 focus:outline-none">
+             {% if user.is_authenticated %}
+             <span class="text-green-800">{{user.get_role_display}}</span>
+                
+            {% else %}
+            <span class="text-blue-400">{% trans "Public visitor" %}</span>
+                
+             {% endif %}
+        </h1>
+     
+
+     <a class="flex flex-row items-center justify-center gap-4" href="">
+        <span class="text-lg tracking-wider">{{user.username|title}}</span>
+        {% if user.image %}
+        <img class="h-8 w-auto rounded-full" src="{{user.image.url}}" alt="">
+        
+        {% else %}
+            <img class="h-9 w-auto rounded-lg" src="{% static "image/person.png" %}" alt="">
+        {% endif %}
+        
+     </a>
+
+
+
+
+</div>
+
+
+
+
+
+

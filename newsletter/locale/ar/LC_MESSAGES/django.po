@@ -1,0 +1,75 @@
+# Newsletter Arabic Translations
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-06 17:54+0000\n"
+"PO-Revision-Date: 2026-10-05 22:26+0000\n"
+"Last-Translator: Full Name <email@example.com>\n"
+"Language-Team: Arabic <ar@li.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: forms.py:11
+msgid "Title"
+msgstr "العنوان"
+
+#: forms.py:12 templates/newsletter/newsletter.html:54
+msgid "Body"
+msgstr "المحتوى"
+
+#: models.py:35
+msgid "pedning"
+msgstr "قيد الانتظار"
+
+#: models.py:36
+msgid "delivered"
+msgstr "تم التسليم"
+
+#: models.py:37
+msgid "failed"
+msgstr "فشل"
+
+#: templates/newsletter/newsletter.html:13
+msgid "This page is accessible only by the site manager."
+msgstr "هذه الصفحة متاحة فقط لمدير الموقع."
+
+#: templates/newsletter/newsletter.html:16
+msgid "Subscribers"
+msgstr "المشتركون"
+
+#: templates/newsletter/newsletter.html:26
+msgid "Sent Email History"
+msgstr "سجل الرسائل المرسلة"
+
+#: templates/newsletter/newsletter.html:40
+msgid "No email history found."
+msgstr "لا يوجد سجل رسائل سابق."
+
+#: templates/newsletter/newsletter.html:46
+msgid "Compose Newsletter"
+msgstr "إنشاء نشرة إخبارية"
+
+#: templates/newsletter/newsletter.html:49
+msgid "Subject"
+msgstr "الموضوع"
+
+#: templates/newsletter/newsletter.html:50
+msgid "Newsletter Title"
+msgstr "عنوان النشرة الإخبارية"
+
+#: templates/newsletter/newsletter.html:55
+msgid "Newsletter Body"
+msgstr "محتوى النشرة الإخبارية"
+
+#: templates/newsletter/newsletter.html:65
+msgid "Send"
+msgstr "إرسال"
+
+#: views.py:150
+msgid "The email has been sent to all subscribers."
+msgstr "تم إرسال البريد الإلكتروني إلى جميع المشتركين."

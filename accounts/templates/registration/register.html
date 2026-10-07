@@ -1,0 +1,49 @@
+{% extends "base_minimal.html" %}
+
+{% block content %}
+
+{% load i18n %}
+
+<div class="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12">
+    <div class="w-full max-w-md rounded-xl bg-white p-8 shadow-sm border border-slate-200">
+        
+        <h2 class="mb-6 text-center text-2xl font-semibold text-slate-800">
+            {% trans "Create an Account" %}
+        </h2>
+
+        <form action="" method="POST" enctype="multipart/form-data" class="space-y-4" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-200">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}" class="mb-1 block text-sm font-medium text-slate-700">
+                        {{ field.label }}
+                    </label>
+                    
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <p class="mt-1 text-xs text-slate-500">{{ field.help_text }}</p>
+                    {% endif %}
+
+                    {% for error in field.errors %}
+                        <p class="mt-1 text-xs text-red-600">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="w-full rounded-lg bg-indigo-600 py-2.5 px-4 text-center text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                {% trans "Register" %}
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock  %}

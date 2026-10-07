@@ -1,0 +1,14 @@
+{
+  "name": "company-management-frontend",
+  "private": true,
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ../static/css/output.css",
+    "watch": "nodemon -L --watch ./src --watch ../ --ext html,css --exec \"npm run build\""
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "daisyui": "^5.7.46",
+    "nodemon": "^3.1.0"
+  }
+}

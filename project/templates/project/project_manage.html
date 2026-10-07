@@ -1,0 +1,262 @@
+{% extends "base_minimal.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+
+
+
+<div class=" flex flex-col grow">
+    <div class="flex flex-row items-center gap-4 p-4">
+        <h1 class="  tracking-widest font-bold">{{project.title|title}}</h1>
+        <div class="px-6 py-2 m-auto w-3/4 flex gap-4  rounded-lg">
+            
+            <h2 class="bg-orange-400 py-2 px-3 rounded-lg tracking-wider">{{ project.get_status_display|title}}</h2>
+
+            {% if user.role == 3 %}
+                <select name="status" id="status" data-project-id="{{ project.id }}">
+                {% for value, label in all_status %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+                </select> 
+                <button type="button" id="confirm-btn" class="cursor-pointer bg-slate-400 py-2 px-3 rounded-lg">{% trans "Confirm" %}</button>
+            {% endif %}
+        </div>
+        
+    </div>
+    
+
+    <div class="flex p-4 gap-10  grow ">
+        <div class="flex flex-col h-3/4 w-3/4 gap-10 ">
+            <div class=" flex w-full gap-6 ">
+
+                <div class="bg-white shadow-md  w-1/2   flex flex-col gap-4 shadow-slate-200 px-4 py-2 rounded-lg">
+                    <h1 class="font-bold tracking-wider">{% trans "Progress Tracking" %}</h1>
+
+                    <div class="flex flex-col gap-2">
+                        <h2>{% trans "Start Date" %}: {{project.created_at|date}}</h2>
+                        <h2>{% trans "Due Date" %}: {{project.due_date}}</h2>
+                        <h2>{% trans "DeadLine" %}: {{due_date_duration}}</h2>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-md w-1/2 flex flex-col justify-between gap-4 shadow-slate-200 px-4 py-2 rounded-lg">
+                    <div class="flex flex-col gap-4">
+                        <h1 class="font-bold tracking-wider">{% trans "Project Team" %}</h1>
+                        {% for employee in project.users.all %}
+                            <h1>{{employee.username|title}} </h1>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Project Team Pagination
+                    <div class="flex justify-between items-center pt-2 text-sm border-t border-slate-100">
+                        {% if users_page.has_previous %}
+                            <a href="?users_page={{ users_page.previous_page_number }}&tasks_page={{ tasks_page.number }}&notes_page={{ notes_page.number }}" class="text-indigo-600 font-semibold">&larr; Previous</a>
+                        {% else %}
+                            <span class="text-slate-400">&larr; Previous</span>
+                        {% endif %}
+
+                        {% if users_page.has_next %}
+                            <a href="?users_page={{ users_page.next_page_number }}&tasks_page={{ tasks_page.number }}&notes_page={{ notes_page.number }}" class="text-indigo-600 font-semibold">Next &rarr;</a>
+                        {% else %}
+                            <span class="text-slate-400">Next &rarr;</span>
+                        {% endif %}
+                    </div>
+                     -->
+                </div>
+
+            </div>
+
+            <div class="row-span-3 bg-white shadow-md flex flex-col justify-between gap-4 shadow-slate-200 p-4 ">
+                <div class="flex flex-col gap-4">
+                    <h1 class="font-bold tracking-wider">{% trans "Daily sync notes" %}</h1>
+                    <div class="flex flex-col gap-6">
+                        {% for note in project.note_set.all %}
+                            <div class="flex flex-col gap-2">
+                                <div class="flex justify-between">
+                                    <h1 class="">{{note.user.username|title}}</h1>
+                                    <h1 class="text-slate-500">{{note.created_at|date}}</h1>
+                                </div>
+                                <p class="bg-slate-100 p-2 shadow-md shadow-slate-200">{{note.content}}</p>
+                            </div>
+                        {% endfor %}
+
+                        {% if user in project.users.all %}
+                            <form class="flex flex-col gap-2 mt-2" action="{% url "note_save" project.id %}" method="POST">
+                               <label class="font-semibold" for="">{% trans "New Note" %}</label>
+                                <textarea class="bg-slate-100 p-2 shadow-md shadow-slate-200" name="content"></textarea>
+                                
+                                <div class="flex w-full justify-center">
+                                    <button class="bg-green-600 px-7 py-2 rounded-lg cursor-pointer " type="submit">{% trans "Send" %}</button>
+                                </div>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Daily Sync Notes Pagination 
+                <div class="flex justify-between items-center pt-2 text-sm border-t border-slate-200">
+                    {% if notes_page.has_previous %}
+                        <a href="?notes_page={{ notes_page.previous_page_number }}&users_page={{ users_page.number }}&tasks_page={{ tasks_page.number }}" class="text-indigo-600 font-semibold">&larr; Previous</a>
+                    {% else %}
+                        <span class="text-slate-400">&larr; Previous</span>
+                    {% endif %}
+
+                    {% if notes_page.has_next %}
+                        <a href="?notes_page={{ notes_page.next_page_number }}&users_page={{ users_page.number }}&tasks_page={{ tasks_page.number }}" class="text-indigo-600 font-semibold">Next &rarr;</a>
+                    {% else %}
+                        <span class="text-slate-400">Next &rarr;</span>
+                    {% endif %}
+                </div>
+                -->
+            </div>
+        
+        </div>
+
+        <div class="bg-slate-50 p-2 w-1/4 shadow-md shadow-slate-200 flex flex-col justify-between gap-2" grow>
+            <div class="flex flex-col gap-2">
+                <h1 class="tracking-wider font-bold">{% trans "Tasks" %}</h1>
+                {% for task in project.task_set.all %}
+                    <div class="flex justify-between">
+                        <div class="flex flex-col  min-w-0 flex-1">
+                            <h1>{{task.title}}</h1>
+                            <p class="text-slate-400 break-words whitespace-pre-line">{{task.description}}</p>
+                        </div>
+                        {% if user in project.users.all %}
+                            <form action="{% url "task_check" task.id %}" method="POST">
+                                {% csrf_token %}
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="is_checked"
+                                    {% if task.is_checked %} checked {% endif %}
+                                    onchange="this.form.submit()"/>
+                            </form>
+                        {% else %}
+                            <input type="checkbox" disabled {% if task.is_checked %} checked {% endif %}>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Task Management Pagination 
+            <div class="flex justify-between items-center pt-2 text-sm border-t border-slate-200">
+                {% if tasks_page.has_previous %}
+                    <a href="?tasks_page={{ tasks_page.previous_page_number }}&users_page={{ users_page.number }}&notes_page={{ notes_page.number }}" class="text-indigo-600 font-semibold">&larr; Previous</a>
+                {% else %}
+                    <span class="text-slate-400">&larr; Previous</span>
+                {% endif %}
+
+                {% if tasks_page.has_next %}
+                    <a href="?tasks_page={{ tasks_page.next_page_number }}&users_page={{ users_page.number }}&notes_page={{ notes_page.number }}" class="text-indigo-600 font-semibold">Next &rarr;</a>
+                {% else %}
+                    <span class="text-slate-400">Next &rarr;</span>
+                {% endif %}
+            </div>
+            -->
+
+        </div>
+
+    </div>
+</div>
+
+{% if user in project.users.all %}
+
+    <script type="module" src="{% static 'js/project_status_update.js' %}"></script>{% endif %}
+{% endblock %}
+
+
+<!---
+
+    <ul>
+
+   <li>{{project.title}}</li>
+   {% for employee in project.users.all %}
+       <li> {{employee}} </li>
+   {% endfor %}
+
+   {% for task in project.task_set.all %}
+         {{task.title}} - 
+
+    {% if  user in project.users.all %}
+         <form action="{% url "task_check" task.id %}" method="POST">
+            {% csrf_token %}
+
+             <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="is_checked"
+                    {% if task.is_checked %} checked {% endif %}
+                    onchange="this.form.submit()"/>
+
+         </form>
+    
+         {% else %}
+            <input type="checkbox" disabled  {% if task.is_checked %} checked {% endif %}>
+
+    {% endif %}
+
+       
+   {% endfor %}
+   <h1>{{project.created_at|date}}</h1>
+   <h1>{{project.due_date}}</h1>
+
+    </ul>
+    <h1>Time remaining</h1>
+    <h1>{{due_date_duration}}</h1>
+
+      
+
+
+
+
+           
+     
+<label for="status">Current Status: {{ project.get_status_display }}</label>
+<select name="status" id="status" data-project-id="{{ project.id }}">
+    {% for value, label in all_status %}
+
+        <option value="{{ value }}">{{ label }}</option>
+    {% endfor %}
+</select> 
+<button type="button" id="confirm-btn" class="cursor-pointer">Confirm</button>
+
+
+
+
+
+
+        <h1>Daily Progress</h1>
+        
+        <ul>
+            
+                {% for note in project.note_set.all %}
+                    {{note.created_at|date}}
+                    <p>  {{note.content}} </p>
+        </ul>
+
+        
+        
+            
+        {% endfor %}
+
+
+        {% if user in project.users.all %}
+
+            <textarea id="note-body" data-project-id="{{project.id}}" data-note-created-at="{{last_note.created_at|date}}"></textarea>
+           
+            <button type="button" id="note-btn">Send</button>
+         
+        {% endif %}
+
+
+
+
+
+
+ -->
+
+
+
+
+

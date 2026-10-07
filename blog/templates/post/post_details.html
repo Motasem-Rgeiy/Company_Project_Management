@@ -1,0 +1,133 @@
+{% extends "base_minimal.html" %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+{% block content %}
+
+
+<div class="flex flex-col gap-5 grow bg-white shadow-sm m-5 p-5 rounded-lg">
+
+    <div class="flex justify-between">
+        <div class="bg-slate-50 flex gap-2 items-center">
+            {% if post.publisher.image %}
+                <img class="h-11 w-11 object-cover rounded-full" src="{{post.publisher.image.url}}" alt="">
+            {% endif %}
+            <div class="flex flex-col">
+                <h1 class="tracking-widest font-bold">{{post.publisher|title}}</h1>
+                <span class="text-slate-400">{% trans "Published" %} {{post.created_at|naturaltime}}</span>
+            </div>
+        </div>
+
+
+        <div class="flex gap-2 items-center justify-center">
+            {% if user.role == 1 or user.role == 2 or post.publisher == user %}
+                <a class="bg-green-600 px-6 py-2 rounded-lg" href="{% url "post_update" post.id %}">{% trans "Edit" %}</a>
+            {% endif %}
+
+            {% if user.role == 1 or user.role == 2 %}
+                <a class="bg-red-600 px-4 py-2 rounded-lg" href="{% url "post_delete" post.id %}">{% trans "Delete" %}</a>
+            {% endif %}
+            
+        </div>
+    </div>
+
+
+    <div class="flex flex-col gap-5">
+        <h1 class="text-2xl md:text-3xl font-bold tracking-widest text-slate-800">{{post.title}}</h1>
+        
+        {% if post.image %}
+            <!-- Expanded height (h-64 on mobile, h-96 on desktop) with rounded corners and overflow hidden -->
+            <div class="w-full h-64 md:h-96 bg-slate-100 rounded-xl overflow-hidden shadow-sm">
+                <!-- object-cover prevents stretching and preserves aspect ratio -->
+                <img class="w-full h-full " src="{{post.image.url}}" alt="{{post.title}}">
+            </div>
+        {% endif %}
+
+        <div class="flex gap-2">
+            {% for tag in post.tags.all %}
+                <span class="font-bold bg-slate-300 px-4 py-2 rounded-md">{{tag.name}}</span>
+            {% endfor %}
+        </div>
+
+        <!-- Added leading-relaxed and whitespace-pre-line to format paragraph breaks cleanly -->
+            <p class="text-slate-700 leading-relaxed whitespace-pre-line tracking-wider">{{post.body}}</p>
+    </div>
+
+   
+  
+    
+    <div class="flex flex-col gap-2">
+            <h1 class="font-bold tracking-wider text-xl">{% trans "Comments" %} ({{comment_count}})</h1>
+            <form action="{% url "comment_save" post.id %}" method="POST">
+            <div class="bg-slate-300 border-1 border-slate-300 p-4 rounded-lg flex flex-col gap-3 ">
+            
+                <label for="">{% trans "Leave a comment" %}</label>
+                
+                    {% csrf_token %}
+                <textarea name="body" class="border-1 h-32 p-2 w-1/4 border-slate-500 bg-white rounded-lg" id="comment-inp" type="text" data-post-id="{{post.id}}" placeholder="{% trans 'Write your comment here' %}"></textarea>
+                <div>
+                    <button class="bg-indigo-600 px-4 py-2 rounded-lg text-slate-100 cursor-pointer" id="comment-btn">{% trans "Post Comment" %}</button>
+                </div>
+                </form>
+                
+            </div>
+
+        
+        <div class="flex flex-col gap-6">
+            {% for comment in post.comment_set.all %}
+                <div class="flex gap-3 items-start">
+                    
+                    <!-- PUBLISHER / GUEST AVATAR -->
+                    {% if comment.publisher and comment.publisher.image %}
+                        <!-- Added sizing, rounded-full, and flex-shrink-0 so the image renders properly -->
+                        <img class="h-10 w-10 object-cover rounded-full flex-shrink-0" src="{{ comment.publisher.image.url }}" alt="{{ comment.publisher }}">
+                    {% else %}
+                        <!-- Fallback image with consistent dimensions -->
+                        <img class="h-10 w-10 object-cover rounded-full flex-shrink-0 bg-slate-200" src="{% static 'image/person.png' %}" alt="Public visitor">
+                    {% endif %}
+
+                    <!-- COMMENT CONTENT -->
+                    <div class="flex flex-col gap-1">
+
+                        <div class="flex gap-3">
+                            <h1 class="font-bold text-sm tracking-wide text-slate-800">
+                                {% if comment.publisher %}
+                                    {{ comment.publisher }}
+                                {% else %}
+                                    {% trans "Public visitor" %}
+                                {% endif %}
+                            </h1>
+                            <span class="text-sm text-slate-600">{{comment.created_at|naturaltime}}</span>
+                        </div>
+                        
+                        <p class="text-sm text-slate-600 leading-relaxed">{{ comment.body }}</p>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+        
+       
+
+
+    
+    </div>
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+{% endblock  %}

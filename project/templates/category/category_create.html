@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<div class=" shadow-md  bg-white  self-start h1/4 flex flex-col justify-evenly p-4">
+    <h1>{% trans "Create a cateogry" %}</h1>
+<form action="{% url "category_create" %}" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <div class="flex w-full items-center justify-center mt-5">
+            <button class="bg-green-600 px-4 py-1 cursor-pointer rounded-lg">{% trans "Save" %}</button>
+         </div>
+  
+    </form>
+
+
+</div>

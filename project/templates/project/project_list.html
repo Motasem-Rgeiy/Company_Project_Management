@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% load i18n %}
+
+
+
+
+<div class="grow text-slate-700 flex flex-col gap-4 p-4">
+
+    {% if perms.project.add_project %} 
+        <div class="flex">
+            <a class="bg-green-600 px-4 py-2 flex gap-2 items-center rounded-lg " href="{% url "project_create" %}">
+                <i class="fa-solid fa-plus text-black"></i>
+                <span class="text-black">{% trans "New Project" %}</span>
+            </a>
+            
+        </div>
+    {% endif %}
+
+    
+    <div class="flex flex-row flex-wrap gap-10 justify-center mt-9">
+    {% for project in object_list %}
+        <div class="bg-white shadow-md w-96 flex flex-col gap-4 shadow-slate-500 px-4 py-2 rounded-lg">
+            <div class="flex flex-col gap-1">
+                <h1 class="font-bold tracking-wider">{{project.title}}</h1>
+                <h1 class="tracking-wider ">{{project.category.name}}</h1>
+                <p class="">{{project.description}}</p>
+
+                <h1>{% trans "Team" %}</h1>
+                
+                <div class="flex">
+                    {% for employee in project.users.all %}
+                        {% if employee.image %}
+                            <img class="w-8 h-8 rounded-full" src="{{employee.image.url}}" alt="">
+                        {% else %}
+                            <img class="w-5 h-8" src="{% static 'image/person.png' %}" alt="">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <h1>{{project.updated_at|date}}</h1>
+            </div>
+
+
+            <div class="flex gap-2 ">
+                {% if user.is_authenticated %}
+                    {% if  project.status != 5 and project.status != 4 %}
+                        {% if user.role == 1 %}
+                        
+                    <a href="{% url "project_delete" project.id %}">
+                        <i class="fa-solid fa-delete-left"></i>
+                    
+                    </a> 
+                    
+                    <a href="{% url "project_update" project.id %}">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+
+                    {% endif %}
+
+                        {% if user.role == 1  or user in project.users.all %}
+                        <a href="{% url "project_manage" project.id %}">
+                            <i class="fa-regular fa-folder"></i>
+                        </a>
+                        {% endif %}
+                {% endif %}
+                {% endif %}
+            </div>
+
+        </div>
+             
+        {% empty %}
+      
+            {% include "common/no_items.html" %}
+        
+    {% endfor %}
+    </div>
+
+    <div class="flex justify-center mt-9 gap-4 tracking-wider bg">
+        {% if page_obj.paginator.count > 0 %}
+            {% if page_obj.has_previous %}
+
+            <a class="bg-green-600 px-4 py-2 rounded-lg text-black flex items-center gap-1" href="?page={{ page_obj.previous_page_number }}">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>{% trans "Previous" %}</span>
+
+            {% else %}
+            <a class="p-2 pl-2 pr-4 bg-green-600 rounded-lg flex items-center gap-1 pointer-events-none opacity-50 select-none" href="">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>{% trans "Previous" %}</span>
+            </a>
+            
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                
+            <a class="bg-green-600 px-7 py-2 rounded-lg text-black " href="?page={{ page_obj.next_page_number }}">
+                <span>{% trans "Next" %}</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            {% else %}
+                <a class="px-7 py-2 bg-green-600 rounded-lg  gap-1 pointer-events-none opacity-50 select-none" href="">
+                    <span>{% trans "Next" %}</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            {% endif %}
+         {% endif %}
+        
+    </div>
+
+
+    
+
+
+</div>
+
+{% endblock  %}

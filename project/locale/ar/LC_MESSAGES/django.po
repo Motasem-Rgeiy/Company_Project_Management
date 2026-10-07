@@ -1,0 +1,379 @@
+# Arabic Translations
+# Copyright (C) 2026
+# This file is distributed under the same license as the PACKAGE package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-06 17:55+0000\n"
+"PO-Revision-Date: 2026-10-06 18:00+0000\n"
+"Last-Translator: Full Name <email@example.com>\n"
+"Language-Team: Arabic <ar@li.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: forms.py:11 forms.py:53 forms.py:74
+#: templates/project/project_update.html:117
+msgid "Title"
+msgstr "العنوان"
+
+#: forms.py:12 forms.py:76 templates/project/project_update.html:122
+msgid "Description"
+msgstr "الوصف"
+
+#: forms.py:13 forms.py:54
+msgid "Due date"
+msgstr "تاريخ الاستحقاق"
+
+#: forms.py:14 forms.py:55
+msgid "Uploaded File"
+msgstr "الملف المرفوع"
+
+#: forms.py:15 forms.py:56
+msgid "Category"
+msgstr "الفئة"
+
+#: forms.py:16 forms.py:57
+msgid "Users"
+msgstr "المستخدمين"
+
+#: forms.py:75 templates/project/project_update.html:127
+msgid "Order"
+msgstr "الترتيب"
+
+#: forms.py:77 models.py:57
+msgid "Project"
+msgstr "مشروع"
+
+#: forms.py:94
+msgid "Name"
+msgstr "الاسم"
+
+#: forms.py:108
+msgid "Note"
+msgstr "ملاحظة"
+
+#: models.py:10
+msgid "pending"
+msgstr "قيد الانتظار"
+
+#: models.py:11
+msgid "in progress"
+msgstr "قيد التنفيذ"
+
+#: models.py:12
+msgid "under review"
+msgstr "قيد المراجعة"
+
+#: models.py:13
+msgid "cancelled"
+msgstr "ملغى"
+
+#: models.py:14
+msgid "completed"
+msgstr "مكتمل"
+
+#: models.py:58 templates/partials/header.html:24
+#: templates/partials/side_bar.html:28 templates/partials/side_bar.html:84
+msgid "Projects"
+msgstr "المشاريع"
+
+#: templates/base_minimal.html:11
+msgid "Project Management"
+msgstr "إدارة المشاريع"
+
+#: templates/category/category_create.html:4
+msgid "Create a cateogry"
+msgstr "إنشاء فئة"
+
+#: templates/category/category_create.html:9
+#: templates/project/project_create.html:23
+msgid "Save"
+msgstr "حفظ"
+
+#: templates/common/no_items.html:11
+msgid "No items found"
+msgstr "لم يتم العثور على أي عناصر"
+
+#: templates/common/no_items.html:14
+msgid "There are currently no items to display."
+msgstr "لا توجد عناصر لعرضها حالياً."
+
+#: templates/partials/footer.html:5
+msgid "You can subscribe to out newsletter by enter your email."
+msgstr "يمكنك الاشتراك في نشرتنا الإخبارية عن طريق إدخال بريدك الإلكتروني."
+
+#: templates/partials/footer.html:8
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: templates/partials/footer.html:9
+msgid "Subscribe"
+msgstr "اشتراك"
+
+#: templates/partials/footer.html:17
+msgid "Confirmation message"
+msgstr "رسالة التأكيد"
+
+#: templates/partials/footer.html:19
+msgid "An email has been sent to your email, please confirm your registration."
+msgstr "تم إرسال بريد إلكتروني إلى عنوانك، يرجى تأكيد التسجيل."
+
+#: templates/partials/footer.html:22
+msgid "OK"
+msgstr "حسناً"
+
+#: templates/partials/header.html:23
+msgid "App"
+msgstr "تطبيق"
+
+#: templates/partials/header.html:25 templates/partials/side_bar.html:106
+msgid "Blog"
+msgstr "مدونة"
+
+#: templates/partials/header.html:34
+msgid "Languages"
+msgstr "اللغات"
+
+#: templates/partials/side_bar.html:12
+msgid "HOME"
+msgstr "الرئيسية"
+
+#: templates/partials/side_bar.html:15
+msgid "Home"
+msgstr "الرئيسية"
+
+#: templates/partials/side_bar.html:18 templates/partials/side_bar.html:21
+msgid "BLOG"
+msgstr "المدونة"
+
+#: templates/partials/side_bar.html:25 templates/partials/side_bar.html:47
+#: templates/partials/side_bar.html:81
+msgid "PROJECT"
+msgstr "المشروع"
+
+#: templates/partials/side_bar.html:32
+msgid "ABOUT"
+msgstr "من نحن"
+
+#: templates/partials/side_bar.html:35
+msgid "Documentation"
+msgstr "الوثائق"
+
+#: templates/partials/side_bar.html:50
+msgid "All Projects"
+msgstr "جميع المشاريع"
+
+#: templates/partials/side_bar.html:56
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: templates/partials/side_bar.html:61
+msgid "In Progress"
+msgstr "قيد التنفيذ"
+
+#: templates/partials/side_bar.html:67
+msgid "Under Review"
+msgstr "قيد المراجعة"
+
+#: templates/partials/side_bar.html:73
+msgid "Cancelled"
+msgstr "ملغى"
+
+#: templates/partials/side_bar.html:78
+msgid "Completed"
+msgstr "مكتمل"
+
+#: templates/partials/side_bar.html:88
+msgid "Newsletter"
+msgstr "النشرة الإخبارية"
+
+#: templates/partials/side_bar.html:92
+msgid "New Email"
+msgstr "بريد جديد"
+
+#: templates/partials/side_bar.html:110
+msgid "Posts"
+msgstr "المنشورات"
+
+#: templates/partials/side_bar.html:116
+msgid "Create"
+msgstr "إنشاء"
+
+#: templates/partials/side_bar.html:128
+msgid "PERSONAL"
+msgstr "شخصي"
+
+#: templates/partials/side_bar.html:132
+msgid "My Projects"
+msgstr "مشاريعي"
+
+#: templates/partials/side_bar.html:139
+msgid "Manage"
+msgstr "إدارة"
+
+#: templates/partials/side_bar.html:143
+msgid "Requests"
+msgstr "الطلبات"
+
+#: templates/partials/side_bar.html:150
+msgid "Register New Users"
+msgstr "تسجيل مستخدمين جدد"
+
+#: templates/partials/side_bar.html:165
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: templates/project/project_create.html:11
+msgid "Create a project"
+msgstr "إنشاء مشروع"
+
+#: templates/project/project_create.html:12
+msgid "This form is accessable only by the company manager."
+msgstr "هذا النموذج متاح فقط لمدير الشركة."
+
+#: templates/project/project_create.html:18
+msgid "Project form"
+msgstr "نموذج المشروع"
+
+#: templates/project/project_delete.html:17
+msgid "Confirm Deletion"
+msgstr "تأكيد الحذف"
+
+#: templates/project/project_delete.html:18
+msgid ""
+"Are you sure you want to delete this item? This action cannot be undone."
+msgstr ""
+"هل أنت متأكد من أنك تريد حذف هذا العنصر؟ لا يمكن التراجع عن هذا الإجراء."
+
+#: templates/project/project_delete.html:33
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: templates/project/project_delete.html:36
+#: templates/project/project_update.html:96
+msgid "Delete"
+msgstr "حذف"
+
+#: templates/project/project_list.html:15
+msgid "New Project"
+msgstr "مشروع جديد"
+
+#: templates/project/project_list.html:30
+msgid "Team"
+msgstr "الفريق"
+
+#: templates/project/project_list.html:86
+#: templates/project/project_list.html:91
+msgid "Previous"
+msgstr "السابق"
+
+#: templates/project/project_list.html:99
+#: templates/project/project_list.html:105
+msgid "Next"
+msgstr "التالي"
+
+#: templates/project/project_manage.html:22
+msgid "Confirm"
+msgstr "تأكيد"
+
+#: templates/project/project_manage.html:34
+msgid "Progress Tracking"
+msgstr "تتبع التقدم"
+
+#: templates/project/project_manage.html:37
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#: templates/project/project_manage.html:38
+msgid "Due Date"
+msgstr "تاريخ الاستحقاق"
+
+#: templates/project/project_manage.html:39
+msgid "DeadLine"
+msgstr "الموعد النهائي"
+
+#: templates/project/project_manage.html:45
+msgid "Project Team"
+msgstr "فريق المشروع"
+
+#: templates/project/project_manage.html:72
+msgid "Daily sync notes"
+msgstr "ملاحظات المزامنة اليومية"
+
+#: templates/project/project_manage.html:86
+msgid "New Note"
+msgstr "ملاحظة جديدة"
+
+#: templates/project/project_manage.html:90
+msgid "Send"
+msgstr "إرسال"
+
+#: templates/project/project_manage.html:118
+msgid "Tasks"
+msgstr "المهام"
+
+#: templates/project/project_update.html:11
+msgid "Manage project details, team members, and task workflows."
+msgstr "إدارة تفاصيل المشروع، وأعضاء الفريق، وسير عمل المهام."
+
+#: templates/project/project_update.html:20
+msgid "Project Details"
+msgstr "تفاصيل المشروع"
+
+#: templates/project/project_update.html:45
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+#: templates/project/project_update.html:56
+msgid "Assigned Team Members"
+msgstr "أعضاء الفريق المعينون"
+
+#: templates/project/project_update.html:71
+msgid "Remove"
+msgstr "إزالة"
+
+#: templates/project/project_update.html:76
+msgid "No users assigned."
+msgstr "لم يتم تعيين أي مستخدمين."
+
+#: templates/project/project_update.html:83
+msgid "Tasks List"
+msgstr "قائمة المهام"
+
+#: templates/project/project_update.html:101
+msgid "No tasks found."
+msgstr "لم يتم العثور على مهام."
+
+#: templates/project/project_update.html:110
+msgid "Add New Task"
+msgstr "إضافة مهمة جديدة"
+
+#: templates/project/project_update.html:132
+msgid "Save Task"
+msgstr "حفظ المهمة"
+
+#: views.py:381
+msgid "The project is not valid!"
+msgstr "المشروع غير صالح!"
+
+#: views.py:391
+msgid "The status has been changed."
+msgstr "تم تغيير الحالة."
+
+#: views.py:406
+msgid "Project Status"
+msgstr "حالة المشروع"
+
+#: views.py:418
+msgid "Your request is sent to the manager."
+msgstr "تم إرسال طلبك إلى المدير."
+
+#: views.py:422
+msgid "The status is not available in our Database!"
+msgstr "الحالة غير متوفرة في قاعدة بياناتنا!"

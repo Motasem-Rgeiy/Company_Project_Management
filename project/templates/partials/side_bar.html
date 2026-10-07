@@ -1,0 +1,175 @@
+{% load i18n %}
+
+<div class="row-span-2 relative bg-slate-800 flex flex-col gap-5  py-4 px-5 text-slate-50">
+
+    
+    
+    <div class="flex flex-col gap-5  tracking-wider">
+
+        {% if not user.is_authenticated %}
+          
+                <div class="flex flex-col gap-5  tracking-wider">
+                    <h1 class="text-slate-400">{% trans "HOME" %}</h1>
+                    <a class="flex items-center gap-2" href="{% url "project_list" %}">
+                        <i class="fa-regular fa-house"></i>
+                        <span>{% trans "Home" %}</span>
+                    </a>
+
+                    <h1 class="text-slate-400">{% trans "BLOG" %}</h1>
+                    <a class="flex items-center gap-2" href="{% url "post_list" %}">
+                        <i class="fa-solid fa-pen"></i>
+                        <span>{% trans "BLOG" %}</span>
+                    </a>
+
+
+                    <h1 class="text-slate-400">{% trans "PROJECT" %}</h1>
+                    <a class="flex items-center gap-2" href="{% url "project_list" %}">
+                        <i class="fa-regular fa-folder"></i>
+                        <span>{% trans "Projects" %}</span>
+                    </a>
+
+                    
+                    <h1 class="text-slate-400">{% trans "ABOUT" %}</h1>
+                    <a class="flex items-center gap-2" href="">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>{% trans "Documentation" %}</span>
+                    </a>
+                    
+                </div>
+                
+           
+
+            
+        {% endif %}
+        
+        <ul class="flex flex-col gap-4 ">
+            {% if user.role == 1 or user.role == 3 %}
+                <h1 class="text-slate-400">{% trans "PROJECT" %}</h1>
+                <a class="flex items-center gap-2" href="{% url 'project_list' %}">
+                    <i class="fa-regular fa-folder"></i>
+                    <span>{% trans "All Projects" %}</span>
+                </a>
+
+
+                <a class="flex items-center gap-2" href="{% url 'project_list' %}?status=1">
+                    <i class="fa-solid fa-stop"></i>
+                    <span>{% trans "Pending" %}</span>
+                </a>
+
+                <a class="flex items-center gap-2" href="{% url 'project_list' %}?status=2">
+                    <i class="fa-regular fa-clock"></i>
+                    <span>{% trans "In Progress" %}</span>
+                </a>
+                
+                
+                <a class="flex items-center gap-2" href="{% url 'project_list' %}?status=3">
+                    <i class="fa-regular fa-bookmark"></i>
+                    <span>{% trans "Under Review" %}</span>
+                </a>
+            
+                <a class="flex items-center gap-2" href="{% url 'project_list' %}?status=4">
+                    
+                     <i class="fa-regular fa-circle-xmark"></i>
+                    <span>{% trans "Cancelled" %}</span>
+                </a>
+                
+                <a class="flex items-center gap-2" href="{% url 'project_list' %}?status=5">
+                       <i class="fa-regular fa-square-check"></i>
+                        <span>{% trans "Completed" %}</span>
+                </a>
+            {% elif user.role == 2 %} 
+                    <h1 class="text-slate-400">{% trans "PROJECT" %}</h1>
+                    <a class="flex items-center gap-2" href="{% url "project_list" %}">
+                        <i class="fa-regular fa-folder"></i>
+                        <span>{% trans "Projects" %}</span>
+                    </a>
+
+                    <div class="flex flex-col gap-5  tracking-wider">
+                        <h1 class="text-slate-400">{% trans "Newsletter" %}</h1>
+                        <ul class="flex flex-col gap-4 ">
+                            <a class="flex items-center gap-2" href="{% url "newsletter_list" %}">
+                                <i class="fa-regular fa-envelope"></i>
+                                <li>{% trans "New Email" %}</li>
+                            </a>
+                        </ul>
+                    </div>
+           {% endif %}
+
+
+           
+
+
+        </ul>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="flex flex-col gap-5  tracking-wider">
+                <h1 class="text-slate-400">{% trans "Blog" %}</h1>
+                <ul class="flex flex-col gap-4">
+                    <a class="flex items-center gap-2" href="{% url "post_list" %}">
+                         <i class="fa-solid fa-pen"></i>
+                        <li>{% trans "Posts" %}</li>
+                    </a>
+
+                    
+                    <a class="flex items-center gap-2" href="{% url "post_create" %}">
+                        <i class="fa-solid fa-plus"></i>
+                        <li>{% trans "Create" %}</li>
+                    </a>
+                    
+                    
+                </ul>
+            </div>
+    {% endif %}
+
+   
+
+    {% if user.role == 3 %}
+        <div class="flex flex-col gap-5  tracking-wider">
+            <h1 class="text-slate-400">{% trans "PERSONAL" %}</h1>
+            <ul>
+                <a class="flex items-center gap-2" href="{% url 'project_list' %}?employee={{request.user.id}}">
+                    <i class="fa-regular fa-folder"></i>
+                    <li>{% trans "My Projects" %}</li>
+                </a>
+            </ul>
+        </div>
+
+    {% elif perms.approval.view_approval and perms.approval.change_approval  %}
+        <div class="flex flex-col gap-5  tracking-wider">
+            <h1 class="text-slate-400">{% trans "Manage" %}</h1>
+            <ul class="flex flex-col gap-4">
+                <a class="flex items-center gap-2" href="{% url "approval_list" %}">
+                    <i class="fa-regular fa-bell"></i>
+                    <li>{% trans "Requests" %}</li>
+                </a>
+
+                {% if  perms.accounts.add_user %}
+                <a class="flex items-center gap-2" href="{% url "register" %}">
+                    <i class="fa-solid fa-user-plus"></i>
+                    
+                    <li>{% trans "Register New Users" %}</li>
+                </a>
+                {% endif %}
+                
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <div class="absolute bottom-5 text-lg">
+            <form action="{% url 'logout' %}" method="POST" class="inline">
+                {% csrf_token %}
+                
+            <button type="submit" class="flex items-center cursor-pointer gap-2 text-slate-300 hover:text-white transition">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>{% trans "Logout" %}</span>
+                </button>
+            </form>
+        </div>
+    {% endif %}
+
+    
+
+    
+  
+</div>

@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+    <h2 class="text-base font-bold text-slate-800 mb-3">{% trans "Existing Tags" %}</h2>
+
+    <ul class="divide-y divide-slate-100">
+        {% for tag in tag_list %}
+            <li class="py-2.5 flex items-center justify-between text-sm">
+                <span class="font-medium text-slate-700">#{{ tag }}</span>
+                
+                <form action="{% url 'tag_delete' tag.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="text-xs font-semibold text-red-500 hover:text-red-700 hover:bg-red-50 px-2.5 py-1 rounded transition-colors">
+                        {% trans "Delete" %}
+                    </button>
+                </form>
+            </li>
+        {% empty %}
+            <li class="py-3 text-xs text-slate-400 italic">{% trans "No tags created yet." %}</li>
+        {% endfor %}
+    </ul>
+</div>

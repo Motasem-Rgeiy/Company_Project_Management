@@ -1,0 +1,32 @@
+{% load static %}
+{% load i18n %}
+
+<div class="bg-slate-900 text-slate-100 col-span-3 p-4 flex items-center justify-between">
+    <p>{% trans "You can subscribe to out newsletter by enter your email." %}</p>
+    <div class=" flex gap-2 items-center">
+
+        <input placeholder="{% trans 'Email' %} "  id="sub-email" class="bg-slate-800 text-slate-100 rounded-lg outline-none py-2 px-4">
+        <button class="cursor-pointer" id="sub-btn">{% trans "Subscribe" %}</button>
+
+    </div>
+
+
+        <div id="msg-container" class="fixed hidden inset-0 bg-black/70  items-center justify-center p-4 z-50">
+  
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 max-w-sm w-full text-center flex flex-col items-center gap-3 shadow-xl">
+                <h2 class="text-lg font-bold text-white">{% trans "Confirmation message" %}</h2>
+                <p class="text-sm text-slate-300">
+                    {% trans "An email has been sent to your email, please confirm your registration." %}
+                </p>
+                <button id="msg-btn" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-6 rounded-lg transition-colors cursor-pointer mt-1">
+                    {% trans "OK" %}
+                </button>
+            </div>
+        </div>
+
+    
+
+</div>
+
+
+<script src="{% static "js/subscribe.js" %}"></script>

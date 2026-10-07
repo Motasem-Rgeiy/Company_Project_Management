@@ -1,0 +1,92 @@
+{% extends "base_minimal.html" %}
+
+{% block content %}
+
+{% load my_filters %}
+{% load static %}
+{% load i18n %}
+
+<div class="flex flex-col gap-5 shadow-md grow">
+
+    <div class="flex flex-col gap-3 p-6 bg-white border-b border-slate-200">
+        <div>
+            <h1 class="tracking-wide font-bold text-2xl text-slate-800">{% trans "Approval Page" %}</h1>
+            <p class="text-sm text-slate-500 mt-1">{% trans "This page is accessible by Site Manager and Company Manager." %}</p>
+        </div>
+        
+        <div class="flex flex-wrap gap-2 text-xs font-medium">
+            <span class="inline-flex items-center px-3 py-1 rounded-md bg-blue-50 text-blue-700 border border-blue-200">
+                {% trans "Company Manager: Approve Project requests" %}
+            </span>
+            <span class="inline-flex items-center px-3 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
+                {% trans "Site Manager: Approve Post requests" %}
+            </span>
+        </div>
+    </div>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+        {% for approval in object_list %}
+            <div class="flex flex-col gap-4 p-5 rounded-lg bg-white shadow-md w-full">
+
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        {% if approval.requester.image %}
+
+                        <img class="h-9 w-auto rounded-lg" src="{% static "image/person.png" %}" alt="">
+                        {% else %}
+                            <img class="h-9 w-auto rounded-lg" src="{% static "image/person.png" %}" alt="">
+                        {% endif %}
+                        
+                        <h1>{{ approval.requester }}</h1>
+                    </div>
+                    {% if approval.is_project %}
+                        <a class="bg-green-600 text-slate-100 flex items-center px-5 py-2 rounded-lg" href="{% url "project_manage" approval.target_object.id %}">{% trans "View" %}</a>
+                    {% else %}
+                        <a class="bg-green-600 text-slate-100 flex items-center px-5 py-2 rounded-lg" href="{% url "post_details" approval.target_object.id %}">{% trans "View" %}</a>
+                    {% endif %}
+                </div>
+
+                <div class="flex flex-col gap-1 border-t border-slate-500 pt-3">
+                    
+                    <span class="text-slate-400">{% trans "Targeted" %} {% if approval.is_project %} {% trans "project" %} {% else %} {% trans "Post" %}{% endif %}</span>
+                    <h1 class="text-xl font-bold tracking-wider">{{approval.target_object.title}}</h1>
+                </div>
+
+                <div class="flex justify-between bg-slate-100 p-5 rounded-lg">
+
+                    <div class="flex flex-col gap-2">
+                        <span class="text-slate-400">{% trans "Approval Order" %}</span>
+                        <h1 class="font-semibold">{{approval.order}}</h1>
+                    </div>
+
+
+                    <div class="flex flex-col gap-2">
+                        <span class="text-slate-400">{% trans "Approval Procedure" %}</span>
+                        <h1 class="font-semibold">
+                           {% if approval.is_project %}{{approval.procedure|project_status_name}} 
+                           {% else %} {{approval.procedure|post_status_name}}
+                           {% endif %} 
+                        </h1>
+                    </div>
+
+                </div>
+
+                <div class="flex gap-6 items-center mt-2">
+                    <a class="bg-green-600 px-4 py-2 rounded-lg text-slate-100" href="{% url "accept_view" approval.id %}">{% trans "Accept" %}</a>
+                    <a class="bg-red-600   px-4 py-2 rounded-lg text-slate-100" href="{% url "reject_view" approval.id %}">{% trans "Reject" %}</a>
+
+                </div>
+            </div>
+
+            {%empty%}
+                {% include "common/no_items.html" %}
+            
+          
+        {% endfor %}
+    </div>
+
+
+</div>
+
+{% endblock  %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="flex flex-col">
+    <!-- Reduced outer gap and padding slightly -->
+    <div class="flex flex-col gap-10 p-4">
+        <div>
+            <!-- Reduced title size from text-xl to text-lg -->
+            <h1 class="font-bold tracking-widest text-xl">{% trans "Posts" %}</h1>
+        </div>
+
+        <!-- Reduced gap between cards from gap-10 to gap-6 -->
+        <div class="flex gap-6 flex-wrap justify-center">
+
+            {% for post in object_list %}
+                <!-- COMPACT CARD: Reduced width to w-56 and height to h-[18rem] -->
+                <div class="flex flex-col bg-white shadow-md rounded-lg w-56 overflow-hidden h-[18rem]">
+
+                    <!-- COMPACT IMAGE: Reduced height to h-24 -->
+                    <div class="h-24 bg-slate-50 flex-shrink-0 flex justify-center items-center">
+                        {% if post.publisher.image %}
+                            <img class="h-full w-full object-cover" src="{{post.publisher.image.url}}" alt="">
+                        {% else %}
+                            <img class="h-12 w-auto object-cover opacity-50" src="{% static 'image/person.png' %}" alt="">
+                        {% endif %}
+                    </div>
+
+                    <!-- COMPACT PADDING: Reduced from p-4 to p-3 -->
+                    <div class="flex flex-col p-3 flex-grow">
+                        
+                        <!-- SMALLER TEXT: text-[10px] -->
+                        <h2 class="text-[10px] font-bold text-indigo-500 mb-1 truncate">{{post.category.name}}</h2>
+                        
+                        <!-- SMALLER TITLE: Reduced from text-lg to text-sm -->
+                        <h1 class="font-bold text-sm text-slate-800 mb-1 truncate" title="{{post.title}}">{{post.title}}</h1>
+
+                        <!-- SMALLER BODY: Reduced to text-xs, height reduced to h-8 -->
+                        <p class="text-slate-500 text-xs mb-2 h-8 line-clamp-2 break-words w-full">{{post.body|truncatechars:60}}</p>
+
+                        <!-- SMALLER META DATA: text-[10px] -->
+                        <div class="mt-auto flex justify-between items-center text-[10px] text-slate-400 mb-2">
+                            <span class="truncate pr-1">By {{post.publisher}}</span>
+                            <span class="bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded-sm whitespace-nowrap">{{post.created_at|date}}</span>
+                        </div>
+
+                        <!-- COMPACT BUTTON: Reduced padding to py-1.5 and text to text-xs -->
+                        <a class="bg-indigo-600 text-white text-center py-1.5 px-3 rounded-md text-xs hover:bg-indigo-700 transition-colors" href="{% url 'post_details' post.id %}">{% trans "View Details" %}</a>
+                        
+                    </div>  
+                </div>
+                {%empty%}
+                {% include "common/no_items.html" %}
+            {% endfor %}
+            
+        </div>
+    </div>
+
+
+    <div class="flex justify-center m-2 gap-4 tracking-wider bg">
+        {% if page_obj.paginator.count > 0 %}
+            {% if page_obj.has_previous %}
+
+            <a class="bg-green-600 px-4 py-2 rounded-lg text-black flex items-center gap-1" href="?page={{ page_obj.previous_page_number }}">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>{% trans "Previous" %}</span>
+
+            {% else %}
+            <a class="p-2 pl-2 pr-4 bg-green-600 rounded-lg flex items-center gap-1 pointer-events-none opacity-50 select-none" href="">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>{% trans "Previous" %}</span>
+            </a>
+            
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                
+            <a class="bg-green-600 px-7 py-2 rounded-lg text-black " href="?page={{ page_obj.next_page_number }}">
+                <span>{% trans "Next" %}</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            {% else %}
+                <a class="px-7 py-2 bg-green-600 rounded-lg  gap-1 pointer-events-none opacity-50 select-none" href="">
+                    <span>{% trans "next" %}</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            {% endif %}
+         {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %}

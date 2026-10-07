@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-06 13:51+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: forms.py:12 forms.py:16 forms.py:54 forms.py:58
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: forms.py:22 forms.py:74
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: forms.py:34
+msgid "First Name"
+msgstr "الاسم الأول"
+
+#: forms.py:38
+#, fuzzy
+#| msgid "First Name"
+msgid "First name"
+msgstr "الاسم الأول"
+
+#: forms.py:44
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+#: forms.py:48
+#, fuzzy
+#| msgid "Last Name"
+msgid "Last name"
+msgstr "اسم العائلة"
+
+#: forms.py:64
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: forms.py:84
+msgid "Password Confirmation"
+msgstr "تأكيد كلمة المرور"
+
+#: models.py:9
+msgid "Company Manager"
+msgstr "مدير الشركة"
+
+#: models.py:10
+msgid "Site Manager"
+msgstr "مدير الموقع"
+
+#: models.py:11
+msgid "Employee"
+msgstr "موظف"
+
+#: models.py:18
+msgid "User"
+msgstr "مستخدم"
+
+#: models.py:19
+msgid "Users"
+msgstr "المستخدمين"
+
+#: templates/base.html:11
+msgid "Project Management"
+msgstr "إدارة المشاريع"
+
+#: templates/registration/login.html:11
+msgid "Login to your account"
+msgstr "سجّل الدخول إلى حسابك"
+
+#: templates/registration/login.html:42
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: templates/registration/register.html:11
+msgid "Create an Account"
+msgstr "إنشاء حساب"
+
+#: templates/registration/register.html:42
+msgid "Register"
+msgstr "تسجيل"
