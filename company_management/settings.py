@@ -91,7 +91,9 @@ WSGI_APPLICATION = 'company_management.wsgi.application'
 
 
 DATABASES = {
-    "default": env.db()
+    "default": env.db(
+        default="sqlite:///db.sqlite3"
+    )
 }
 
 
