@@ -156,7 +156,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT =BASE_DIR / '/media/' #Tell django images and files will be stored in this directory
+MEDIA_ROOT =BASE_DIR / 'media/' #Tell django images and files will be stored in this directory
 
 
 STATICFILES_DIRS = [BASE_DIR / 'static'] #To find where static directory is located in the project
