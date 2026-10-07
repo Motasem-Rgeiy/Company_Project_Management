@@ -1,24 +1,27 @@
-# setup server
+# 1. Base Python image
+FROM python:3.13-slim
 
-#1 start docker kernal + python
-FROM python:3.13.7-slim
-
-#2 : ENV : show logs
+# 2. Environment variables: Output logs directly to terminal
 ENV PYTHONUNBUFFERED=1
 
-#3 : Update kernal + install
+# 3. Update OS & install build dependencies
 RUN apt-get update && apt-get -y install gcc libpq-dev gettext && rm -rf /var/lib/apt/lists/*
-#4 : create project folder : kernal
+
+# 4. Create working directory inside container
 WORKDIR /app
 
-#5: copy requi
+# 5. Copy requirements first for Docker layer caching
 COPY requirements.txt /app/requirements.txt
 
+# 6. Install Python dependencies
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
-#6: install req
-RUN pip install -r /app/requirements.txt
-
-#7: copy project code --> docker
+# 7. Copy remaining project code into container
 COPY . /app/
 
+# 8. Collect static files during image build (uses dummy SECRET_KEY if env var isn't set yet)
+RUN SECRET_KEY=dummy python manage.py collectstatic --noinput
+
+# 9. Run database migrations, then start Gunicorn on dynamic $PORT
+CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn company_management.wsgi:application --bind 0.0.0.0:$PORT"]
 
