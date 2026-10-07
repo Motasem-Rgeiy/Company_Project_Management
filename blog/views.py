@@ -29,7 +29,12 @@ class PostListView(generic.ListView):
      paginate_by = 12
 
      def get_queryset(self):
-          return super().get_queryset().filter(status=models.PostStatus.PUBLISHED)
+        return (
+            super()
+            .get_queryset()
+            .filter(status=models.PostStatus.PUBLISHED)
+            .order_by('-created_at')  # Applied ordering directly
+        )
 
 
 
