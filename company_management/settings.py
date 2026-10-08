@@ -179,7 +179,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT =BASE_DIR / 'media/' #Tell django images and files will be stored in this directory
+MEDIA_ROOT = BASE_DIR / 'media/' #Tell django images and files will be stored in this directory
 
 
 STATICFILES_DIRS = [BASE_DIR / 'static'] #To find where static directory is located in the project
@@ -196,7 +196,7 @@ MAILERS = {
         "port": 587,
         "use_tls": True,
         "username": "muohtassomerghei@gmail.com",
-        "password": "gbht mnxw ndzz kfbk",
+        "password": "",
     }
     }
 }
@@ -217,16 +217,14 @@ LOGOUT_REDIRECT_URL  = '/accounts/login'
 
 
 
-#DEFAULT_FROM_EMAIL = "muohtassomerghei@gmail.com"
 
 
 
 
 EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-#EMAIL_HOST_USER = '8953c079e1a8ee'
+
 EMAIL_HOST_USER  = os.environ.get('EMAIL_HOST_USER')
 
-#EMAIL_HOST_PASSWORD = 'ed5486eab34f8b'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = '2525'
 
