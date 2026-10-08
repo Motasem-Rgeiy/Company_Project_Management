@@ -54,7 +54,7 @@ def subscribe_view(request):
     send_mail(
         subject='Confirm your newsletter subscription.',
         message=f'Please, confirm your identity to subscribe to our newsletter before 24 by click {confirm_url} before 24 hours',
-        from_email= settings.DEFAULT_FROM_EMAIL,
+        from_email= 'motasem@example.com',
         recipient_list=[email_address],
     )
         
