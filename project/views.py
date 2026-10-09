@@ -430,16 +430,15 @@ def project_status_update(request, projectId):
 @permission_required('project.can_write_note', raise_exception=True)
 @login_required
 def note_save(request, projectId):
-            print(projectId, 'jjj')
             form = forms.NoteCreateForm(request.POST)
-            
             if form.is_valid():
                    print(form.cleaned_data)
-                   models.Note.objects.create(
-                        content=form.cleaned_data['content'],
-                        project_id=projectId,
-                        user=request.user    
-                   )
+                   if form.cleaned_data['contnent']:
+                        models.Note.objects.create(
+                                content=form.cleaned_data['content'],
+                                project_id=projectId,
+                                user=request.user    
+                        )
 
                    return redirect('project_manage', projectId)
             else:
