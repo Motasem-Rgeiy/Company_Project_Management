@@ -16,7 +16,8 @@ import json
 from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.translation import gettext_lazy as _
-
+from smtplib import SMTPException
+import socket, threading
 # Create your views here.
 
 
@@ -25,6 +26,66 @@ from django.utils.translation import gettext_lazy as _
 signer = TimestampSigner()
 
 
+
+
+def send_async_email(subject, message, from_email, recipient_list):
+    try:
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=from_email,
+            recipient_list=recipient_list,
+            fail_silently=False,
+        )
+    except Exception as e:
+        # Logs directly to Railway application logs
+        print(f"Background email delivery failed: {e}")
+
+
+@require_POST
+@csrf_exempt
+def subscribe_view(request):
+    try:
+        data = json.loads(request.body)
+        email_address = data.get('user_email')
+    except (json.JSONDecodeError, AttributeError):
+        return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
+    if not email_address or not is_valid_email(email_address):
+        return JsonResponse({'error': 'Invalid email address!'}, status=400)
+
+    subscriber = models.Subscriber.objects.filter(email=email_address).first()
+    if not subscriber:
+        models.Subscriber.objects.create(email=email_address)
+    elif subscriber.is_active:
+        return JsonResponse({'error': 'This email is already subscribed!'}, status=409)
+
+    token = signer.sign(email_address)
+    confirm_url = request.build_absolute_uri(
+        reverse('email_confirm', kwargs={'token': token})
+    )
+
+    # Spawn background thread to dispatch email without blocking response
+    threading.Thread(
+        target=send_async_email,
+        args=(
+            'Confirm your newsletter subscription.',
+            f'Please confirm your identity by clicking {confirm_url} within 24 hours.',
+            'motasem@example.com',
+            [email_address],
+        ),
+        daemon=True,
+    ).start()
+
+    return JsonResponse({'status': 'success', 'message': 'Confirmation email sent!'})
+
+
+
+
+
+
+
+'''
 @require_POST
 @csrf_exempt
 def subscribe_view(request):
@@ -58,7 +119,7 @@ def subscribe_view(request):
     )
         
     return JsonResponse({'status':'success'})
-
+'''
 
 
 
