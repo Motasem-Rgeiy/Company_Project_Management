@@ -36,7 +36,6 @@ def subscribe_view(request):
         print('Invalid email!')
         return JsonResponse({}, status=500)
 
-    
     subscriber = models.Subscriber.objects.filter(email=email_address).last()
     if not subscriber:
          models.Subscriber.objects.create(email=email_address)
