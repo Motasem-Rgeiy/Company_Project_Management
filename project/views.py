@@ -433,7 +433,7 @@ def note_save(request, projectId):
             form = forms.NoteCreateForm(request.POST)
             if form.is_valid():
                    print(form.cleaned_data)
-                   if form.cleaned_data['contnent']:
+                   if form.cleaned_data['content']:
                         models.Note.objects.create(
                                 content=form.cleaned_data['content'],
                                 project_id=projectId,
