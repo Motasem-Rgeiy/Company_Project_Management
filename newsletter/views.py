@@ -207,7 +207,11 @@ def newsletter_operations(request):
                                                  publisher=request.user,
                                                  )
                 
-                return JsonResponse({'message':_("The email has been sent to all subscribers.")})
+                return JsonResponse({
+                     'message':_(
+                        "Newsletter sending task has been queued. Emails will be sent in the background."
+                    )
+                    })
 
     
         error_msg = list(form.errors.values())[0][0]

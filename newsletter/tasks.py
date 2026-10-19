@@ -24,15 +24,15 @@ def get_emails(subject, body):
 
 #Mailtrap apply a limitation on the process of sending emails over a period of time.
 @shared_task(
-    max_retries=5,
-    rate_limit='1/s',  # Limits task execution to 1 per second per worker instance
+    max_retries=3,
+  #  rate_limit='1/s',  # Limits task execution to 1 per second per worker instance
     autoretry_for=(SMTPDataError, Exception),
     retry_backoff=True,         # Exponential backoff (1s, 2s, 4s, 8s...)
-    retry_backoff_max=30,       # Max wait time between retries
-    retry_jitter=True           # Adds randomness to prevent thundering herd
+ #   retry_backoff_max=30,       # Max wait time between retries
+ #   retry_jitter=True           # Adds randomness to prevent thundering herd
 )
 def send_emails(subject, body, email_group):
-                    time.sleep(1.1)
+            #        time.sleep(1.1)
                     send_mail(
                         subject=subject,
                         message=body,

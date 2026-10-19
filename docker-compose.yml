@@ -52,6 +52,14 @@ services:
       - redis
       - db
 
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: company_management_mailpit
+    ports:
+      - "1025:1025"   # SMTP port
+      - "8025:8025"   # Web UI dashboard
+    restart: unless-stopped
+
 
   tailwind:
     container_name: tailwind

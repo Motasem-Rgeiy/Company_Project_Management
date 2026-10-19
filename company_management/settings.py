@@ -225,8 +225,8 @@ LOGOUT_REDIRECT_URL  = '/accounts/login'
 
 
 
-
-
+#Mailtrap configruration
+'''
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
 EMAIL_HOST_USER  = os.environ.get('EMAIL_HOST_USER')
@@ -235,7 +235,18 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_TIMEOUT = 10
+'''
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mailpit'  # Match the service name in docker-compose.yml
+EMAIL_PORT = 1025
+
+# Leave these empty or set as empty strings
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
 
 
 
