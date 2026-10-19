@@ -9,17 +9,16 @@ sub_btn.addEventListener('click',async () =>{
         const originalBtnHTML = sub_btn.innerHTML;
         sub_btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Loading...</span>'; // Change text to Loading
         try {
-            const response = await fetch('/en/newsletter/subscribe', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'),
-                },
-                body: JSON.stringify({
-                    user_email:sub_email .value,
-                 
-                })
-            });
+            const response = await API.post(
+                        'newsletter/subscribe',
+                        JSON.stringify({
+                            user_email: sub_email.value,
+                        }),
+                        {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken'),
+                        }
+                        );
             
             sub_btn.innerHTML = originalBtnHTML;
             if(response.ok){

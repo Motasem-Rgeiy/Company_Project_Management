@@ -196,7 +196,6 @@ def newsletter_list(request):
 #@csrf_exempt
 @permission_required('newsletter.add_newsletter', raise_exception=True)
 def newsletter_operations(request):
-     
         form = forms.NewsletterCreateForm(request.POST)
         if form.is_valid():
                 

@@ -10,18 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const projectId = statusSelect.dataset.projectId;
 
             try {
-                const response = await fetch(`/en/project/status/update/${projectId}`, {
-                    method: 'POST',
-                    headers: {
+                const response = await API.post(
+                    `project/status/update/${projectId}`, 
+                    JSON.stringify({
+                        status: selectedStatus,
+                    }),
+                     {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': getCookie('csrftoken'),
                     },
-                    body: JSON.stringify({
-                        status: selectedStatus,
+                    
                        
                         
-                    })
-                });
+                    )
+                ;
 
                 const data = await response.json();
 

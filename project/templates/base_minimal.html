@@ -2,27 +2,57 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 
-
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "Project Management" %}</title>
+    <!-- Language code meta tag for JavaScript -->
+    <meta name="language-code" content="{{ LANGUAGE_CODE }}">
+    <title>{% trans "Project Management"%}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static "css/output.css" %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+    
+    <!-- Centralized API Helper Script -->
+    <script>
+      window.API = {
+        // Helper to construct localized URLs
+        url: function(path) {
+          const lang = document.querySelector('meta[name="language-code"]')?.getAttribute('content') || 'en';
+          const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+          return `/${lang}/${cleanPath}`;
+        },
+
+        // Centralized fetch POST request helper
+        post: async function(endpoint, formData, headers = {}) {
+          return await fetch(this.url(endpoint), {
+            method: 'POST',
+            headers: headers,
+            body: formData,
+          });
+        }
+      };
+    </script>
 
     <script src="{% static 'js/common/message.js' %}"></script>
 </head>
 
 <body class="bg-slate-100 min-h-screen flex flex-col">
-        {% include "partials/header.html" %}   
-        {% block content %}{% endblock  %}
+        {% include "partials/header.html" %}
 
-        <div id="toast" class="fixed top-5 right-5 hidden  transition-opacity duration-300 px-4 py-3 rounded-lg bg-emerald-600 text-white font-medium shadow-md z-50">
+        
+        {% block content %}{% endblock %}
+  
+
+        <div id="toast" class="fixed top-5 right-5 hidden transition-opacity duration-300 px-4 py-3 rounded-lg bg-emerald-600 text-white font-medium shadow-md z-50">
             <span id="toast-message"></span>
         </div>
-
 </body>
 </html>
+
+
+
+
+
+
