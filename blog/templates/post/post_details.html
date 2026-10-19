@@ -37,21 +37,22 @@
         <h1 class="text-2xl md:text-3xl font-bold tracking-widest text-slate-800">{{post.title}}</h1>
         
         {% if post.image %}
-            <!-- Expanded height (h-64 on mobile, h-96 on desktop) with rounded corners and overflow hidden -->
-            <div class="w-full h-64 md:h-96 bg-slate-100 rounded-xl overflow-hidden shadow-sm">
-                <!-- object-cover prevents stretching and preserves aspect ratio -->
-                <img class="w-full h-full " src="{{post.image.url}}" alt="{{post.title}}">
+            <!-- Uses aspect-ratio for natural, responsive scaling with smooth transition -->
+            <div class="w-full aspect-[4/3] md:aspect-[16/9] bg-slate-100 rounded-xl overflow-hidden shadow-sm">
+                <img class="w-full h-full object-cover object-center transition-opacity duration-300" 
+                    src="{{post.image.url}}" 
+                    alt="{{post.title}}"
+                    loading="lazy">
             </div>
         {% endif %}
 
-        <div class="flex gap-2">
+        <div class="flex flex-wrap gap-2">
             {% for tag in post.tags.all %}
-                <span class="font-bold bg-slate-300 px-4 py-2 rounded-md">{{tag.name}}</span>
+                <span class="font-bold bg-slate-200 text-slate-700 px-3 py-1 text-sm rounded-md">{{tag.name}}</span>
             {% endfor %}
         </div>
 
-        <!-- Added leading-relaxed and whitespace-pre-line to format paragraph breaks cleanly -->
-            <p class="text-slate-700 leading-relaxed whitespace-pre-line tracking-wider">{{post.body}}</p>
+        <p class="text-slate-700 leading-relaxed whitespace-pre-line tracking-wider">{{post.body}}</p>
     </div>
 
    
