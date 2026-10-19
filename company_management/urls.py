@@ -29,7 +29,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('project/', include('project.urls')),
+    path('', include('project.urls')),  #Fix: replace /project/ by home url 
     path('newsletter/', include('newsletter.urls')),
     path('blog/', include('blog.urls')),
     path('approvals/', include('approval.urls')),
