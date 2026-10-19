@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-06 17:54+0000\n"
+"POT-Creation-Date: 2026-10-19 21:29+0000\n"
 "PO-Revision-Date: 2026-10-05 22:26+0000\n"
 "Last-Translator: Full Name <email@example.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Title"
 msgstr "العنوان"
 
-#: forms.py:12 templates/newsletter/newsletter.html:54
+#: forms.py:12 templates/newsletter/newsletter.html:56
 msgid "Body"
 msgstr "المحتوى"
 
@@ -50,26 +50,31 @@ msgstr "سجل الرسائل المرسلة"
 msgid "No email history found."
 msgstr "لا يوجد سجل رسائل سابق."
 
-#: templates/newsletter/newsletter.html:46
+#: templates/newsletter/newsletter.html:48
 msgid "Compose Newsletter"
 msgstr "إنشاء نشرة إخبارية"
 
-#: templates/newsletter/newsletter.html:49
+#: templates/newsletter/newsletter.html:51
 msgid "Subject"
 msgstr "الموضوع"
 
-#: templates/newsletter/newsletter.html:50
+#: templates/newsletter/newsletter.html:52
 msgid "Newsletter Title"
 msgstr "عنوان النشرة الإخبارية"
 
-#: templates/newsletter/newsletter.html:55
+#: templates/newsletter/newsletter.html:57
 msgid "Newsletter Body"
 msgstr "محتوى النشرة الإخبارية"
 
-#: templates/newsletter/newsletter.html:65
+#: templates/newsletter/newsletter.html:67
 msgid "Send"
 msgstr "إرسال"
 
-#: views.py:150
-msgid "The email has been sent to all subscribers."
-msgstr "تم إرسال البريد الإلكتروني إلى جميع المشتركين."
+#: views.py:212
+msgid ""
+"Newsletter sending task has been queued. Emails will be sent in the "
+"background."
+msgstr "تم جدولة إرسال النشرة الإخبارية بنجاح! يتم الآن معالجة الإرسال في الخلفية."
+
+#~ msgid "The email has been sent to all subscribers."
+#~ msgstr "تم إرسال البريد الإلكتروني إلى جميع المشتركين."

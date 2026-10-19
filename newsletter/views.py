@@ -206,7 +206,7 @@ def newsletter_operations(request):
                                                  body=form.cleaned_data['body'],
                                                  publisher=request.user,
                                                  )
-                
+                #Fix: Replace the old confirmation message by alerting that the emails in background.
                 return JsonResponse({
                      'message':_(
                         "Newsletter sending task has been queued. Emails will be sent in the background."

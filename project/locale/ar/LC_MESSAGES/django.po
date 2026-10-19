@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-06 17:55+0000\n"
+"POT-Creation-Date: 2026-10-19 21:27+0000\n"
 "PO-Revision-Date: 2026-10-06 18:00+0000\n"
 "Last-Translator: Full Name <email@example.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -79,11 +79,11 @@ msgid "completed"
 msgstr "مكتمل"
 
 #: models.py:58 templates/partials/header.html:24
-#: templates/partials/side_bar.html:28 templates/partials/side_bar.html:84
+#: templates/partials/side_bar.html:28 templates/partials/side_bar.html:98
 msgid "Projects"
 msgstr "المشاريع"
 
-#: templates/base_minimal.html:11
+#: templates/base_minimal.html:12
 msgid "Project Management"
 msgstr "إدارة المشاريع"
 
@@ -132,13 +132,17 @@ msgstr "حسناً"
 msgid "App"
 msgstr "تطبيق"
 
-#: templates/partials/header.html:25 templates/partials/side_bar.html:106
+#: templates/partials/header.html:25 templates/partials/side_bar.html:120
 msgid "Blog"
 msgstr "مدونة"
 
-#: templates/partials/header.html:34
+#: templates/partials/header.html:36
 msgid "Languages"
 msgstr "اللغات"
+
+#: templates/partials/header.html:55
+msgid "Public visitor"
+msgstr "زائر عام"
 
 #: templates/partials/side_bar.html:12
 msgid "HOME"
@@ -153,7 +157,7 @@ msgid "BLOG"
 msgstr "المدونة"
 
 #: templates/partials/side_bar.html:25 templates/partials/side_bar.html:47
-#: templates/partials/side_bar.html:81
+#: templates/partials/side_bar.html:95
 msgid "PROJECT"
 msgstr "المشروع"
 
@@ -189,43 +193,43 @@ msgstr "ملغى"
 msgid "Completed"
 msgstr "مكتمل"
 
-#: templates/partials/side_bar.html:88
+#: templates/partials/side_bar.html:83 templates/partials/side_bar.html:102
 msgid "Newsletter"
 msgstr "النشرة الإخبارية"
 
-#: templates/partials/side_bar.html:92
+#: templates/partials/side_bar.html:87 templates/partials/side_bar.html:106
 msgid "New Email"
 msgstr "بريد جديد"
 
-#: templates/partials/side_bar.html:110
+#: templates/partials/side_bar.html:124
 msgid "Posts"
 msgstr "المنشورات"
 
-#: templates/partials/side_bar.html:116
+#: templates/partials/side_bar.html:130
 msgid "Create"
 msgstr "إنشاء"
 
-#: templates/partials/side_bar.html:128
+#: templates/partials/side_bar.html:142
 msgid "PERSONAL"
 msgstr "شخصي"
 
-#: templates/partials/side_bar.html:132
+#: templates/partials/side_bar.html:146
 msgid "My Projects"
 msgstr "مشاريعي"
 
-#: templates/partials/side_bar.html:139
+#: templates/partials/side_bar.html:153
 msgid "Manage"
 msgstr "إدارة"
 
-#: templates/partials/side_bar.html:143
+#: templates/partials/side_bar.html:157
 msgid "Requests"
 msgstr "الطلبات"
 
-#: templates/partials/side_bar.html:150
+#: templates/partials/side_bar.html:164
 msgid "Register New Users"
 msgstr "تسجيل مستخدمين جدد"
 
-#: templates/partials/side_bar.html:165
+#: templates/partials/side_bar.html:179
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
@@ -278,43 +282,43 @@ msgstr "السابق"
 msgid "Next"
 msgstr "التالي"
 
-#: templates/project/project_manage.html:22
+#: templates/project/project_manage.html:23
 msgid "Confirm"
 msgstr "تأكيد"
 
-#: templates/project/project_manage.html:34
+#: templates/project/project_manage.html:35
 msgid "Progress Tracking"
 msgstr "تتبع التقدم"
 
-#: templates/project/project_manage.html:37
+#: templates/project/project_manage.html:38
 msgid "Start Date"
 msgstr "تاريخ البدء"
 
-#: templates/project/project_manage.html:38
+#: templates/project/project_manage.html:39
 msgid "Due Date"
 msgstr "تاريخ الاستحقاق"
 
-#: templates/project/project_manage.html:39
+#: templates/project/project_manage.html:40
 msgid "DeadLine"
 msgstr "الموعد النهائي"
 
-#: templates/project/project_manage.html:45
+#: templates/project/project_manage.html:46
 msgid "Project Team"
 msgstr "فريق المشروع"
 
-#: templates/project/project_manage.html:72
+#: templates/project/project_manage.html:73
 msgid "Daily sync notes"
 msgstr "ملاحظات المزامنة اليومية"
 
-#: templates/project/project_manage.html:86
+#: templates/project/project_manage.html:88
 msgid "New Note"
 msgstr "ملاحظة جديدة"
 
-#: templates/project/project_manage.html:90
+#: templates/project/project_manage.html:92
 msgid "Send"
 msgstr "إرسال"
 
-#: templates/project/project_manage.html:118
+#: templates/project/project_manage.html:120
 msgid "Tasks"
 msgstr "المهام"
 
@@ -358,22 +362,22 @@ msgstr "إضافة مهمة جديدة"
 msgid "Save Task"
 msgstr "حفظ المهمة"
 
-#: views.py:381
+#: views.py:346
 msgid "The project is not valid!"
 msgstr "المشروع غير صالح!"
 
-#: views.py:391
+#: views.py:356
 msgid "The status has been changed."
 msgstr "تم تغيير الحالة."
 
-#: views.py:406
+#: views.py:371
 msgid "Project Status"
 msgstr "حالة المشروع"
 
-#: views.py:418
+#: views.py:383
 msgid "Your request is sent to the manager."
 msgstr "تم إرسال طلبك إلى المدير."
 
-#: views.py:422
+#: views.py:387
 msgid "The status is not available in our Database!"
 msgstr "الحالة غير متوفرة في قاعدة بياناتنا!"
