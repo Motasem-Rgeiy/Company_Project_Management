@@ -17,5 +17,15 @@ class UserCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Create
     permission_required = 'accounts.add_user'
     raise_exception = True
 
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        if user.is_superuser:
+            user.role = None
+
+        user.save()
+        form.save_m2m()
+        return super().form_valid(form)
+    
+
     def get_success_url(self):
         return reverse_lazy('project_list')

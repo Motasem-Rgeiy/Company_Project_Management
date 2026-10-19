@@ -45,10 +45,14 @@
      
         <h1 class="bg-slate-800  border border-slate-700 rounded-md px-3 py-2 focus:outline-none">
              {% if user.is_authenticated %}
-             <span class="text-green-800">{{user.get_role_display}}</span>
+                {% if user.is_superuser %}
+                    <span class="text-green-800">Superuser</span>
+                {% else %}
+                    <span class="text-green-800">{{user.get_role_display}}</span>
+                {% endif %}
                 
             {% else %}
-            <span class="text-blue-400">{% trans "Public visitor" %}</span>
+                <span class="text-blue-400">{% trans "Public visitor" %}</span>
                 
              {% endif %}
         </h1>

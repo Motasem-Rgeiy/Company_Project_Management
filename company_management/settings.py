@@ -28,12 +28,20 @@ environ.Env.read_env(BASE_DIR / ".env")
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fws9v0@d0q2tj+^bdjof^$&ge(ew+f6(mnmz*n2vc%qp@6%#ic'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ["*"]
+
+ALLOWED_HOSTS = [
+    host.strip() 
+    for host in os.environ.get(
+        'ALLOWED_HOSTS', 
+        '127.0.0.1,localhost,.railway.app,.up.railway.app'
+    ).split(',') 
+    if host.strip()
+]
 
 
 # Application definition
@@ -244,10 +252,14 @@ STORAGES = {
 
 
 
-CSRF_TRUSTED_ORIGINS = os.environ.get(
-    "CSRF_TRUSTED_ORIGINS", 
-    "https://*.railway.app"
-).split(",")
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip() 
+    for origin in os.environ.get(
+        'CSRF_TRUSTED_ORIGINS', 
+        'https://projectmanagement-production-c17d.up.railway.app,https://*.up.railway.app'
+    ).split(',') 
+    if origin.strip()
+]
 
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

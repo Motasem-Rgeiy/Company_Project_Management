@@ -8,7 +8,7 @@
 
 <div class="grow text-slate-700 flex flex-col gap-4 p-4">
 
-    {% if perms.project.add_project and not user.is_superuser %} 
+    {% if perms.project.add_project%} 
         <div class="flex">
             <a class="bg-green-600 px-4 py-2 flex gap-2 items-center rounded-lg " href="{% url "project_create" %}">
                 <i class="fa-solid fa-plus text-black"></i>
@@ -46,7 +46,7 @@
             <div class="flex gap-2 ">
                 {% if user.is_authenticated %}
                     {% if  project.status != 5 and project.status != 4 %}
-                        {% if user.role == 1 %}
+                        {% if perms.project.delete_project and perms.project.change_project %}
                         
                     <a href="{% url "project_delete" project.id %}">
                         <i class="fa-solid fa-delete-left"></i>
@@ -59,7 +59,7 @@
 
                     {% endif %}
 
-                        {% if user.role == 1  or user in project.users.all %}
+                        {% if perms.project.can_manage_project and user.role != 3  or user in project.users.all %}
                         <a href="{% url "project_manage" project.id %}">
                             <i class="fa-regular fa-folder"></i>
                         </a>

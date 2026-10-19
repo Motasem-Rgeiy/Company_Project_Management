@@ -33,7 +33,7 @@
                     <div class="flex items-center gap-2">
                         {% if approval.requester.image %}
 
-                        <img class="h-9 w-auto rounded-lg" src="{% static "image/person.png" %}" alt="">
+                        <img class="h-9 w-auto rounded-lg" src="{{approval.requester.image.url}}" alt="">
                         {% else %}
                             <img class="h-9 w-auto rounded-lg" src="{% static "image/person.png" %}" alt="">
                         {% endif %}

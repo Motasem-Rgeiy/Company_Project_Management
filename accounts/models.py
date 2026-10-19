@@ -11,7 +11,7 @@ class UserRoles(models.IntegerChoices):
     EMPLOYEE = 3, _('Employee')
 
 class User(AbstractUser):
-    role = models.IntegerField(choices=UserRoles.choices, default=UserRoles.SITE_MANAGER)
+    role = models.IntegerField(choices=UserRoles.choices, default=UserRoles.SITE_MANAGER, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
 
     class Meta:

@@ -13,7 +13,8 @@
             
             <h2 class="bg-orange-400 py-2 px-3 rounded-lg tracking-wider">{{ project.get_status_display|title}}</h2>
 
-            {% if user.role == 3 %}
+            {% if perms.project.can_edit_project_status %}
+             
                 <select name="status" id="status" data-project-id="{{ project.id }}">
                 {% for value, label in all_status %}
                     <option value="{{ value }}">{{ label }}</option>
@@ -81,7 +82,7 @@
                             </div>
                         {% endfor %}
 
-                        {% if user in project.users.all %}
+                        {% if perms.project.can_write_note %}
                             <form class="flex flex-col gap-2 mt-2" action="{% url "note_save" project.id %}" method="POST">
                                 {% csrf_token %}
                                <label class="font-semibold" for="">{% trans "New Note" %}</label>
@@ -123,7 +124,7 @@
                             <h1>{{task.title}}</h1>
                             <p class="text-slate-400 break-words whitespace-pre-line">{{task.description}}</p>
                         </div>
-                        {% if user in project.users.all %}
+                        {% if perms.project.change_task %}
                             <form action="{% url "task_check" task.id %}" method="POST">
                                 {% csrf_token %}
                                 <input
@@ -161,9 +162,10 @@
     </div>
 </div>
 
-{% if user in project.users.all %}
 
-    <script type="module" src="{% static 'js/project_status_update.js' %}"></script>{% endif %}
+
+    <script type="module" src="{% static 'js/project_status_update.js' %}"></script>
+
 {% endblock %}
 
 

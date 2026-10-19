@@ -27,7 +27,7 @@ class ProjectListView(generic.ListView):
         queryset = super().get_queryset()
 
         # 1. Base access checks (filter queryset instead of returning early)
-        if not self.request.user.is_authenticated or self.request.user.role == UserRoles.SITE_MANAGER:
+        if not self.request.user.is_authenticated or self.request.user.role == UserRoles.SITE_MANAGER and not self.request.user.is_superuser:
             queryset = queryset.filter(status=models.ProjectStatus.COMPLETED)
 
         # 2. Filter by assigned employee
@@ -56,18 +56,12 @@ class ProjectListView(generic.ListView):
 
 
 
-class ProjectCreateView(LoginRequiredMixin, UserPassesTestMixin  ,PermissionRequiredMixin, generic.CreateView):
+class ProjectCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
     model = models.Project
     form_class = forms.ProjectCreateForm
     template_name = 'project/project_create.html'
     permission_required = 'project.add_project'
     raise_exception = True
-
-    def test_func(self):
-           if self.request.user.is_superuser:
-                  return False
-           
-           return True
 
 
     def form_valid(self, form):
@@ -249,7 +243,7 @@ def project_management(request, projectId):
     if project.status in [models.ProjectStatus.CANCELLED, models.ProjectStatus.COMPLETED]:
            return HttpResponse('The project is not available.')
 
-    if request.user not in project.users.all() and request.user.role != UserRoles.COMPANY_MANAGER:
+    if request.user not in project.users.all() and request.user.role != UserRoles.COMPANY_MANAGER and not request.user.is_superuser:
         raise PermissionDenied('You Are not allowed to access this page')
 
 
@@ -303,7 +297,7 @@ def task_check(request, taskId):
     if not task:
          return HttpResponse('Not Found!')
 
-    if request.user not in task.project.users.all():
+    if request.user not in task.project.users.all() and not request.user.is_superuser:
           raise PermissionDenied('You are not in the team!')
 
     project_id = task.project.id
@@ -401,6 +395,11 @@ def project_status_update(request, projectId):
 @permission_required('project.can_write_note', raise_exception=True)
 @login_required
 def note_save(request, projectId):
+            project = models.Project.objects.filter(pk=projectId).last()
+
+            if request.user not in project.users.all() and not request.user.is_superuser:
+                      raise PermissionDenied('You are not in the team!')
+            
             form = forms.NoteCreateForm(request.POST)
             if form.is_valid():
                    if form.cleaned_data['content']:

@@ -24,9 +24,11 @@ class RequestListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListV
 
     def get_queryset(self):
         queryset = super().get_queryset().filter(status=ApprovalStatus.PENDING)
-   
 
-        if self.request.user.role == UserRoles.SITE_MANAGER:
+        if self.request.user.is_superuser:
+                return queryset
+      
+        elif self.request.user.role == UserRoles.SITE_MANAGER:
             content_type = ContentType.objects.get_for_model(Post)
           
         elif self.request.user.role == UserRoles.COMPANY_MANAGER:
@@ -51,12 +53,12 @@ def request_accept(request, pk):
              return HttpResponse('Not found!')
 
 
-    if request.user.role == UserRoles.SITE_MANAGER and approve.is_project:
-            raise PermissionDenied('You cannot accept this request.')
+    if request.user.role == UserRoles.SITE_MANAGER and approve.is_project and not request.user.is_superuser:
+            raise PermissionDenied('Site Manager cannot accept Project request.')
 
 
-    if request.user.role == UserRoles.COMPANY_MANAGER and approve.is_post:
-         raise PermissionDenied('You cannot accept this request.')
+    if request.user.role == UserRoles.COMPANY_MANAGER and approve.is_post and not request.user.is_superuser:
+         raise PermissionDenied('Company Manager cannot accept Post request.')
 
 
     instance = approve.target_object
@@ -82,11 +84,11 @@ def request_reject(request, pk):
          return HttpResponse('Not found!')
     
     
-    if request.user.role == UserRoles.SITE_MANAGER and approve.is_project:
+    if request.user.role == UserRoles.SITE_MANAGER and approve.is_project and not request.user.is_superuser:
             raise PermissionDenied('Site managers cannot reject project requests.')
     
     
-    if request.user.role == UserRoles.COMPANY_MANAGER and approve.is_post:
+    if request.user.role == UserRoles.COMPANY_MANAGER and approve.is_post and not request.user.is_superuser:
              raise PermissionDenied('Company managers cannot reject post requests.')
 
     

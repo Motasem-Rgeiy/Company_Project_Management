@@ -10,10 +10,10 @@ from .models import User, UserRoles
 @receiver(post_save, sender=User)
 def assign_user_role_group(sender, instance, created, **kwargs):
          print(instance.role)
-         print('Hello signals')
+      
          if instance.role == UserRoles.COMPANY_MANAGER:
-                print('f')
-                codenames = ['add_project', 'can_update_project', 'change_project', 'delete_project', 'add_category', 'add_task', 'can_manage_project', 'can_edit_project_status', 'delete_task', 'delete_post', 'can_create_blog', 'add_tag', 'view_tag', 'delete_tag', 'view_approval', 'change_approval']
+            
+                codenames = ['add_project', 'can_update_project', 'change_project', 'delete_project', 'add_category', 'add_task', 'can_manage_project', 'delete_task', 'delete_post', 'can_create_blog', 'add_tag', 'view_tag', 'delete_tag', 'view_approval', 'change_approval']
                 group, _ = Group.objects.get_or_create(name="company_managers")
                 permission = Permission.objects.filter(codename__in=codenames)
         
