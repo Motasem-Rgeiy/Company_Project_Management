@@ -12,7 +12,8 @@ sub_btn.addEventListener('click',async () =>{
             const response = await fetch('/en/newsletter/subscribe', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
                 body: JSON.stringify({
                     user_email:sub_email .value,

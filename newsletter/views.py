@@ -42,8 +42,8 @@ def send_async_email(subject, message, from_email, recipient_list):
         print(f"Background email delivery failed: {e}")
 
 
+#Fix: include csrf token with the request.
 @require_POST
-@csrf_exempt
 def subscribe_view(request):
     try:
         data = json.loads(request.body)
@@ -192,7 +192,8 @@ def newsletter_list(request):
   #1 get all subscriber emails from database and put them in Redis
   #2 get 25 emails per task
   #3 celery get 25 emails one at a time, sends them, again and again
-@csrf_exempt
+#Fix: include csrf token with the request.
+#@csrf_exempt
 @permission_required('newsletter.add_newsletter', raise_exception=True)
 def newsletter_operations(request):
      

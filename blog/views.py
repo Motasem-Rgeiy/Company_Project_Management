@@ -209,7 +209,7 @@ def tag_delete_view(request, tagId):
 
 
 
-@csrf_exempt
+
 def comment_save(request, pk):
      post = models.Post.objects.filter(pk=pk).last()
      if not post:

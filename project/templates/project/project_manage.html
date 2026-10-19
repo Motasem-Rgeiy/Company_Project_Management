@@ -83,6 +83,7 @@
 
                         {% if user in project.users.all %}
                             <form class="flex flex-col gap-2 mt-2" action="{% url "note_save" project.id %}" method="POST">
+                                {% csrf_token %}
                                <label class="font-semibold" for="">{% trans "New Note" %}</label>
                                 <textarea class="bg-slate-100 p-2 shadow-md shadow-slate-200" name="content"></textarea>
                                 

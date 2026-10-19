@@ -45,8 +45,12 @@ sendBtn.addEventListener('click', async () => {
 
   // 4. Send fetch POST request
   try {
+    console.log(getCookie('csrftoken'))
     const response = await fetch('/en/newsletter/send', {
       method: 'POST',
+      headers:{
+        'X-CSRFToken': getCookie('csrftoken'),
+      },
       body: formData,
     });
 

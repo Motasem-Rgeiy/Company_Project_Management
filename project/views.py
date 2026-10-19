@@ -17,20 +17,12 @@ from django.utils.translation import gettext as _
 
 
 
-
-
-
-
-
-
-
 class ProjectListView(generic.ListView):
     model = models.Project
     template_name = 'project/project_list.html'
     paginate_by = 6
+
   
-
-
     def get_queryset(self):
         queryset = super().get_queryset()
 
@@ -59,10 +51,6 @@ class ProjectListView(generic.ListView):
         return queryset.order_by('-created_at')
 
     
-
-
-
-
 
 
 
@@ -103,9 +91,6 @@ class ProjectCreateView(LoginRequiredMixin, UserPassesTestMixin  ,PermissionRequ
 
 
 
-
-
-
 class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     model = models.Project
     form_class = forms.ProjectUpdateForm
@@ -116,11 +101,6 @@ class ProjectUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Upd
     def get_success_url(self):
             return reverse('project_update', args=[self.object.id])
     
-
-
-
-
-
 
 
 
@@ -137,11 +117,6 @@ class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.Del
 
 
             
-
-
-
-   
-
 
 
 
@@ -180,11 +155,10 @@ def taskCreateView(request):
             task.save()
         else:
             print('Unvalid')
-        
-
            
-    
         return redirect('project_update', request.POST.get('project'))
+
+
 
 
 
@@ -283,21 +257,21 @@ def project_management(request, projectId):
     due_date_duration =project.due_date - project.created_at.date()
 
 
-    available_status = [
-         ('pending', models.ProjectStatus.PENDING),
-           ('in_progress', models.ProjectStatus.IN_PROGRESS),
-             ('under_review', models.ProjectStatus.UNDER_REVIEW),
-         ]
+ #   available_status = [
+  #       ('pending', models.ProjectStatus.PENDING),
+  #         ('in_progress', models.ProjectStatus.IN_PROGRESS),
+  #           ('under_review', models.ProjectStatus.UNDER_REVIEW),
+  #       ]
 
-    last_note = project.note_set.order_by('-created_at').first()
+  #  last_note = project.note_set.order_by('-created_at').first()
 
     all_status = models.ProjectStatus.choices
   
 
     context = {'project':project,
               'due_date_duration':due_date_duration,
-                'status':available_status,
-                'last_note':last_note,
+   #             'status':available_status,
+      #          'last_note':last_note,
                 'all_status':all_status,
           #      'tasks_page': tasks_page,
           #       'users_page': users_page,
@@ -362,8 +336,6 @@ def task_check(request, taskId):
 @login_required
 @require_POST
 def project_status_update(request, projectId):
-     print('hello')
-     print(projectId)
 
      project = models.Project.objects.filter(pk=projectId).last()
      #if not project:
@@ -424,15 +396,13 @@ def project_status_update(request, projectId):
      
 
 #must be accessed only the owner and related users
-#This view requires extra validation for the note per day logic
-@csrf_exempt
+#@csrf_exempt
 @require_POST
 @permission_required('project.can_write_note', raise_exception=True)
 @login_required
 def note_save(request, projectId):
             form = forms.NoteCreateForm(request.POST)
             if form.is_valid():
-                   print(form.cleaned_data)
                    if form.cleaned_data['content']:
                         models.Note.objects.create(
                                 content=form.cleaned_data['content'],
