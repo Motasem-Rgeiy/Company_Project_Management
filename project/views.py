@@ -26,26 +26,32 @@ class ProjectListView(generic.ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
 
+        if not self.request.user.is_authenticated or self.request.user.role == UserRoles.SITE_MANAGER and not self.request.user.is_superuser: 
+               return queryset.filter(status=models.ProjectStatus.COMPLETED)
+
         # 1. Base access checks (filter queryset instead of returning early)
-        if not self.request.user.is_authenticated or self.request.user.role == UserRoles.SITE_MANAGER and not self.request.user.is_superuser:
-            queryset = queryset.filter(status=models.ProjectStatus.COMPLETED)
+        
 
         # 2. Filter by assigned employee
         employee_id = self.request.GET.get('employee')
+    
         if employee_id:
-            user = User.objects.filter(pk=employee_id).first()
+            user = User.objects.filter(pk=employee_id).last()
             if user:
-                queryset = user.assigned_projects.all()
+               return user.assigned_projects.all()
             else:
-                queryset = queryset.none()  # Return empty queryset if user doesn't exist
+                return queryset.none()  # Return empty queryset if user doesn't exist
 
         # 3. Filter by status parameter
         status = self.request.GET.get('status')
         if status:
             try:
-                queryset = queryset.filter(status=int(status))
+                if int(status) != 0:
+                        queryset = queryset.filter(status=int(status))
             except (ValueError, TypeError):
-                pass
+                    pass
+        else:
+               queryset = queryset.filter(status=models.ProjectStatus.COMPLETED)
 
         # Ensures order_by is applied to ALL paths before returning
         return queryset.order_by('-created_at')

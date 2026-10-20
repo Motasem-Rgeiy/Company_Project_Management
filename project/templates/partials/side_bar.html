@@ -44,8 +44,15 @@
         
         <ul class="flex flex-col gap-4 ">
             {% if user.role == 1 or user.role == 3 or user.is_superuser %}
+
+                <h1 class="text-slate-400">{% trans "HOME" %}</h1>
+                    <a class="flex items-center gap-2" href="{% url "project_list" %}">
+                        <i class="fa-regular fa-house"></i>
+                        <span>{% trans "Home" %}</span>
+                    </a>
+                    
                 <h1 class="text-slate-400">{% trans "PROJECT" %}</h1>
-                <a class="flex items-center gap-2" href="{% url 'project_list' %}">
+                <a class="flex items-center gap-2" href="{% url 'project_list' %}?status=0">
                     <i class="fa-regular fa-folder"></i>
                     <span>{% trans "All Projects" %}</span>
                 </a>
@@ -91,7 +98,14 @@
                 {% endif %}
 
                 
-            {% elif user.role == 2 %} 
+            {% elif user.role == 2 %}
+
+                    <h1 class="text-slate-400">{% trans "HOME" %}</h1>
+                    <a class="flex items-center gap-2" href="{% url "project_list" %}">
+                        <i class="fa-regular fa-house"></i>
+                        <span>{% trans "Home" %}</span>
+                    </a>
+                    
                     <h1 class="text-slate-400">{% trans "PROJECT" %}</h1>
                     <a class="flex items-center gap-2" href="{% url "project_list" %}">
                         <i class="fa-regular fa-folder"></i>

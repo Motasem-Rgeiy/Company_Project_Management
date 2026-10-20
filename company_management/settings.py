@@ -217,7 +217,7 @@ CELERY_BROKER_URL = "redis://redis:6379/0"
 CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 
 
-LOGIN_REDIRECT_URL = '/project'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL  = '/accounts/login'
 
 
@@ -237,7 +237,7 @@ EMAIL_USE_SSL = False
 EMAIL_TIMEOUT = 10
 '''
 
-
+#Accessed the UI by http://localhost:8025/ in local environment
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mailpit'  # Match the service name in docker-compose.yml
 EMAIL_PORT = 1025
