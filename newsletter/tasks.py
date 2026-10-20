@@ -21,7 +21,7 @@ def get_emails(subject, body):
         
 
 
-
+#Fix: hide subscibers addresses from others
 #Mailtrap apply a limitation on the process of sending emails over a period of time.
 @shared_task(
     max_retries=3,
@@ -33,13 +33,19 @@ def get_emails(subject, body):
 )
 def send_emails(subject, body, email_group):
             #        time.sleep(1.1)
-                    send_mail(
+                    from_email = 'motasem@example.com'
+                    to_email = [from_email]
+
+                    email_message = EmailMessage(
                         subject=subject,
-                        message=body,
-                        from_email='motasem@example.com',
-                        recipient_list=email_group,
-                        fail_silently=False,
+                        body=body,
+                        from_email=from_email,
+                        to=to_email,
+                        bcc=email_group
+        
                     )
+
+                    email_message.send(fail_silently=False)
                     print('Done!')
 
 
