@@ -36,10 +36,7 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
     host.strip() 
-    for host in os.environ.get(
-        'ALLOWED_HOSTS', 
-        '127.0.0.1,localhost,.railway.app,.up.railway.app'
-    ).split(',') 
+    for host in os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',') 
     if host.strip()
 ]
 
@@ -203,7 +200,7 @@ MAILERS = {
         "host": "smtp.gmail.com",
         "port": 587,
         "use_tls": True,
-        "username": "muohtassomerghei@gmail.com",
+        "username": "",
         "password": "",
     }
     }
@@ -213,8 +210,8 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 #celery + docker
-CELERY_BROKER_URL = "redis://redis:6379/0"
-CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+CELERY_BROKER_URL = os.environ.get('REDIS_URL', 'redis://redis:6379/0')
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL', 'redis://redis:6379/0')
 
 
 LOGIN_REDIRECT_URL = '/'
@@ -239,14 +236,13 @@ EMAIL_TIMEOUT = 10
 
 #Accessed the UI by http://localhost:8025/ in local environment
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mailpit'  # Match the service name in docker-compose.yml
-EMAIL_PORT = 1025
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'mailpit')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '1025'))
 
-# Leave these empty or set as empty strings
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = False
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'False').lower() == 'true'
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False').lower() == 'true'
 
 
 
@@ -262,13 +258,11 @@ STORAGES = {
 
 
 
+DEFAULT_CSRF_ORIGINS = 'http://127.0.0.1,http://127.0.0.1:8000,http://localhost,http://localhost:8000'
 
 CSRF_TRUSTED_ORIGINS = [
     origin.strip() 
-    for origin in os.environ.get(
-        'CSRF_TRUSTED_ORIGINS', 
-        'https://projectmanagement-production-c17d.up.railway.app,https://*.up.railway.app'
-    ).split(',') 
+    for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', DEFAULT_CSRF_ORIGINS).split(',') 
     if origin.strip()
 ]
 
